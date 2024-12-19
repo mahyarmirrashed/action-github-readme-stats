@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"os"
 	"regexp"
+	"strings"
 
 	"github.com/mahyarmirrashed/github-readme-stats/internal/config"
 	"github.com/mahyarmirrashed/github-readme-stats/internal/github"
@@ -12,6 +13,8 @@ import (
 )
 
 const readmePath = "README.md"
+
+var includes []string
 
 var rootCmd = &cobra.Command{
 	Use:   "github-readme-stats",
@@ -29,16 +32,36 @@ var rootCmd = &cobra.Command{
 		ctx := context.Background()
 
 		// Fetch user information
-		rep, err := github.GetUserInfo(ctx, client)
+		userInfo, err := github.GetUserInfo(ctx, client)
 		if err != nil {
 			return fmt.Errorf("failed to get user info: %w", err)
 		}
 
-		// Generate the new content to insert into README
-		newContent := fmt.Sprintf("\nUser Login: %s\n", rep.Viewer.Login)
+		// Build the output content based on the order of `includes`
+		var contentBuilder strings.Builder
+
+		for _, item := range includes {
+			switch item {
+			case "DAY_STATS":
+				contentBuilder.WriteString("\nDay Stats Placeholder\n")
+			case "WEEK_STATS":
+				contentBuilder.WriteString("\nWeek Stats Placeholder\n")
+			case "TOP_LANGUAGES":
+				contentBuilder.WriteString("\nTop Languages Placeholder\n")
+			default:
+				// Unknown item, skip or handle error
+				contentBuilder.WriteString(fmt.Sprintf("Unknown item: %s\n", item))
+			}
+		}
+
+		// Append with newline
+		contentBuilder.WriteString("\n")
+
+		// Always include user login at the end (or wherever you like)
+		contentBuilder.WriteString(fmt.Sprintf("User Login: %s\n", userInfo.Viewer.Login))
 
 		// Update the README file
-		if err := updateReadme(readmePath, newContent); err != nil {
+		if err := updateReadme(readmePath, contentBuilder.String()); err != nil {
 			return fmt.Errorf("failed to update README: %w", err)
 		}
 
@@ -53,6 +76,10 @@ func Execute() {
 	if err != nil {
 		os.Exit(1)
 	}
+}
+
+func init() {
+	rootCmd.Flags().StringArrayVar(&includes, "include", []string{}, "Ordered list of stats to include (e.g. DAY_STATS, WEEK_STATS, TOP_LANGUAGES)")
 }
 
 func updateReadme(filepath string, newContent string) error {
