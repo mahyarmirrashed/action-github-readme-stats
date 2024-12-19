@@ -1,43 +1,44 @@
 package cmd
 
 import (
+	"context"
+	"fmt"
 	"os"
 
+	"github.com/mahyarmirrashed/github-readme-stats/internal/config"
+	"github.com/mahyarmirrashed/github-readme-stats/internal/github"
 	"github.com/spf13/cobra"
 )
 
-// rootCmd represents the base command when called without any subcommands
 var rootCmd = &cobra.Command{
 	Use:   "github-readme-stats",
-	Short: "A brief description of your application",
-	Long: `A longer description that spans multiple lines and likely contains
-examples and usage of using your application. For example:
+	Short: "Update GitHub readme statistics",
+	Long:  "Update your GitHub README with various statistics such as, what time of day you code, what days of the week you code, and more!",
+	RunE: func(cmd *cobra.Command, args []string) error {
+		cfg := config.LoadConfig()
+		if cfg.GithubToken == "" {
+			return fmt.Errorf("GITHUB_TOKEN not provided")
+		}
 
-Cobra is a CLI library for Go that empowers applications.
-This application is a tool to generate the needed files
-to quickly create a Cobra application.`,
-	// Uncomment the following line if your bare application
-	// has an action associated with it:
-	// Run: func(cmd *cobra.Command, args []string) { },
+		client := github.NewClient(cfg.GithubToken)
+		ctx := context.Background()
+
+		rep, err := github.GetUserInfo(ctx, client)
+		if err != nil {
+			return fmt.Errorf("failed to get user info: %w", err)
+		}
+
+		fmt.Printf("User Login: %s\n", rep.Viewer.Login)
+		fmt.Printf("User ID: %s\n", rep.Viewer.Id)
+		return nil
+	},
 }
 
-// Execute adds all child commands to the root command and sets flags appropriately.
-// This is called by main.main(). It only needs to happen once to the rootCmd.
 func Execute() {
+	rootCmd.SilenceUsage = true
+
 	err := rootCmd.Execute()
 	if err != nil {
 		os.Exit(1)
 	}
-}
-
-func init() {
-	// Here you will define your flags and configuration settings.
-	// Cobra supports persistent flags, which, if defined here,
-	// will be global for your application.
-
-	// rootCmd.PersistentFlags().StringVar(&cfgFile, "config", "", "config file (default is $HOME/.github-readme-stats.yaml)")
-
-	// Cobra also supports local flags, which will only run
-	// when this action is called directly.
-	rootCmd.Flags().BoolP("toggle", "t", false, "Help message for toggle")
 }
