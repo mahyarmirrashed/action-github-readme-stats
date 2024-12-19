@@ -1,0 +1,8 @@
+# https://github.com/Khan/genqlient/blob/main/docs/genqlient.yaml
+schema: ./internal/github/schema.graphql
+operations:
+  - ./internal/github/queries/*.graphql
+generated: ./internal/github/queries.go
+bindings:
+  DateTime:
+    type: time.Time
