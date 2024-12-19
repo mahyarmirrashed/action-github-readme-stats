@@ -9,6 +9,7 @@ import (
 
 	"github.com/mahyarmirrashed/github-readme-stats/internal/config"
 	"github.com/mahyarmirrashed/github-readme-stats/internal/github"
+	"github.com/mahyarmirrashed/github-readme-stats/internal/stats"
 	"github.com/spf13/cobra"
 )
 
@@ -31,10 +32,21 @@ var rootCmd = &cobra.Command{
 		client := github.NewClient(cfg.GithubToken)
 		ctx := context.Background()
 
-		// Fetch user information
-		userInfo, err := github.GetUserInfo(ctx, client)
-		if err != nil {
-			return fmt.Errorf("failed to get user info: %w", err)
+		// Fetch repository information
+		var cursor string
+		var repositories []github.GetRepositoryStatsViewerUserRepositoriesRepositoryConnectionNodesRepository
+		hasNextPage := true
+
+		for hasNextPage {
+			repositoryStatsQuery, err := github.GetRepositoryStats(ctx, client, cursor)
+			if err != nil {
+				return fmt.Errorf("failed to get repository stats: %w", err)
+			}
+
+			repositories = append(repositories, repositoryStatsQuery.Viewer.Repositories.Nodes...)
+
+			hasNextPage = repositoryStatsQuery.Viewer.Repositories.PageInfo.HasNextPage
+			cursor = repositoryStatsQuery.Viewer.Repositories.PageInfo.EndCursor
 		}
 
 		// Build the output content based on the order of `includes`
@@ -45,7 +57,13 @@ var rootCmd = &cobra.Command{
 			case "DAY_STATS":
 				contentBuilder.WriteString("\nDay Stats Placeholder\n")
 			case "WEEK_STATS":
-				contentBuilder.WriteString("\nWeek Stats Placeholder\n")
+				// Compute the weekly stats from the repositories and user info
+				weeklyData, err := stats.GetWeeklyCommitData(cfg, repositories)
+				if err != nil {
+					return fmt.Errorf("failed to get weekly commit data: %w", err)
+				}
+				contentBuilder.WriteString("\n```\n" + weeklyData + "\n```\n")
+
 			case "TOP_LANGUAGES":
 				contentBuilder.WriteString("\nTop Languages Placeholder\n")
 			default:
@@ -56,9 +74,6 @@ var rootCmd = &cobra.Command{
 
 		// Append with newline
 		contentBuilder.WriteString("\n")
-
-		// Always include user login at the end (or wherever you like)
-		contentBuilder.WriteString(fmt.Sprintf("User Login: %s\n", userInfo.Viewer.Login))
 
 		// Update the README file
 		if err := updateReadme(readmePath, contentBuilder.String()); err != nil {
@@ -97,7 +112,7 @@ func updateReadme(filepath string, newContent string) error {
 	}
 
 	// Replace the block content
-	updatedContent := re.ReplaceAllString(string(data), fmt.Sprintf("<!-- README-STATS:START -->\n%s\n<!-- README-STATS:END -->", newContent))
+	updatedContent := re.ReplaceAllString(string(data), fmt.Sprintf("<!-- README-STATS:START -->\n%s<!-- README-STATS:END -->", newContent))
 
 	// Write the updated content back to the file
 	err = os.WriteFile(filepath, []byte(updatedContent), 0o644)

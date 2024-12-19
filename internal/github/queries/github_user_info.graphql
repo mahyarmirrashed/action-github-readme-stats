@@ -1,6 +1,0 @@
-query GetUserInfo {
-  viewer {
-    login
-    id
-  }
-}
