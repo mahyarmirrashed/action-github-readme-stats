@@ -11,105 +11,81 @@ import (
 	"github.com/Khan/genqlient/graphql"
 )
 
-// __getCommitHistoryInput is used internally by genqlient
-type __getCommitHistoryInput struct {
-	Owner string `json:"owner"`
-	Name  string `json:"name"`
-	Id    string `json:"id"`
-}
-
-// GetOwner returns __getCommitHistoryInput.Owner, and is useful for accessing the field via an interface.
-func (v *__getCommitHistoryInput) GetOwner() string { return v.Owner }
-
-// GetName returns __getCommitHistoryInput.Name, and is useful for accessing the field via an interface.
-func (v *__getCommitHistoryInput) GetName() string { return v.Name }
-
-// GetId returns __getCommitHistoryInput.Id, and is useful for accessing the field via an interface.
-func (v *__getCommitHistoryInput) GetId() string { return v.Id }
-
-// __getContributedReposInput is used internally by genqlient
-type __getContributedReposInput struct {
-	Username string `json:"username"`
-}
-
-// GetUsername returns __getContributedReposInput.Username, and is useful for accessing the field via an interface.
-func (v *__getContributedReposInput) GetUsername() string { return v.Username }
-
-// getCommitHistoryRepository includes the requested fields of the GraphQL type Repository.
+// GetCommitHistoryRepository includes the requested fields of the GraphQL type Repository.
 // The GraphQL type's documentation follows.
 //
 // A repository contains the content for a project.
-type getCommitHistoryRepository struct {
+type GetCommitHistoryRepository struct {
 	// Fetch a list of refs from the repository
-	Refs getCommitHistoryRepositoryRefsRefConnection `json:"refs"`
+	Refs GetCommitHistoryRepositoryRefsRefConnection `json:"refs"`
 }
 
-// GetRefs returns getCommitHistoryRepository.Refs, and is useful for accessing the field via an interface.
-func (v *getCommitHistoryRepository) GetRefs() getCommitHistoryRepositoryRefsRefConnection {
+// GetRefs returns GetCommitHistoryRepository.Refs, and is useful for accessing the field via an interface.
+func (v *GetCommitHistoryRepository) GetRefs() GetCommitHistoryRepositoryRefsRefConnection {
 	return v.Refs
 }
 
-// getCommitHistoryRepositoryRefsRefConnection includes the requested fields of the GraphQL type RefConnection.
+// GetCommitHistoryRepositoryRefsRefConnection includes the requested fields of the GraphQL type RefConnection.
 // The GraphQL type's documentation follows.
 //
 // The connection type for Ref.
-type getCommitHistoryRepositoryRefsRefConnection struct {
+type GetCommitHistoryRepositoryRefsRefConnection struct {
 	// A list of edges.
-	Edges []getCommitHistoryRepositoryRefsRefConnectionEdgesRefEdge `json:"edges"`
+	Edges []GetCommitHistoryRepositoryRefsRefConnectionEdgesRefEdge `json:"edges"`
 }
 
-// GetEdges returns getCommitHistoryRepositoryRefsRefConnection.Edges, and is useful for accessing the field via an interface.
-func (v *getCommitHistoryRepositoryRefsRefConnection) GetEdges() []getCommitHistoryRepositoryRefsRefConnectionEdgesRefEdge {
+// GetEdges returns GetCommitHistoryRepositoryRefsRefConnection.Edges, and is useful for accessing the field via an interface.
+func (v *GetCommitHistoryRepositoryRefsRefConnection) GetEdges() []GetCommitHistoryRepositoryRefsRefConnectionEdgesRefEdge {
 	return v.Edges
 }
 
-// getCommitHistoryRepositoryRefsRefConnectionEdgesRefEdge includes the requested fields of the GraphQL type RefEdge.
+// GetCommitHistoryRepositoryRefsRefConnectionEdgesRefEdge includes the requested fields of the GraphQL type RefEdge.
 // The GraphQL type's documentation follows.
 //
 // An edge in a connection.
-type getCommitHistoryRepositoryRefsRefConnectionEdgesRefEdge struct {
+type GetCommitHistoryRepositoryRefsRefConnectionEdgesRefEdge struct {
 	// The item at the end of the edge.
-	Node getCommitHistoryRepositoryRefsRefConnectionEdgesRefEdgeNodeRef `json:"node"`
+	Node GetCommitHistoryRepositoryRefsRefConnectionEdgesRefEdgeNodeRef `json:"node"`
 }
 
-// GetNode returns getCommitHistoryRepositoryRefsRefConnectionEdgesRefEdge.Node, and is useful for accessing the field via an interface.
-func (v *getCommitHistoryRepositoryRefsRefConnectionEdgesRefEdge) GetNode() getCommitHistoryRepositoryRefsRefConnectionEdgesRefEdgeNodeRef {
+// GetNode returns GetCommitHistoryRepositoryRefsRefConnectionEdgesRefEdge.Node, and is useful for accessing the field via an interface.
+func (v *GetCommitHistoryRepositoryRefsRefConnectionEdgesRefEdge) GetNode() GetCommitHistoryRepositoryRefsRefConnectionEdgesRefEdgeNodeRef {
 	return v.Node
 }
 
-// getCommitHistoryRepositoryRefsRefConnectionEdgesRefEdgeNodeRef includes the requested fields of the GraphQL type Ref.
+// GetCommitHistoryRepositoryRefsRefConnectionEdgesRefEdgeNodeRef includes the requested fields of the GraphQL type Ref.
 // The GraphQL type's documentation follows.
 //
 // Represents a Git reference.
-type getCommitHistoryRepositoryRefsRefConnectionEdgesRefEdgeNodeRef struct {
+type GetCommitHistoryRepositoryRefsRefConnectionEdgesRefEdgeNodeRef struct {
 	// The ref name.
 	Name string `json:"name"`
 	// The object the ref points to. Returns null when object does not exist.
-	Target getCommitHistoryRepositoryRefsRefConnectionEdgesRefEdgeNodeRefTargetGitObject `json:"-"`
+	Target GetCommitHistoryRepositoryRefsRefConnectionEdgesRefEdgeNodeRefTargetGitObject `json:"-"`
 }
 
-// GetName returns getCommitHistoryRepositoryRefsRefConnectionEdgesRefEdgeNodeRef.Name, and is useful for accessing the field via an interface.
-func (v *getCommitHistoryRepositoryRefsRefConnectionEdgesRefEdgeNodeRef) GetName() string {
+// GetName returns GetCommitHistoryRepositoryRefsRefConnectionEdgesRefEdgeNodeRef.Name, and is useful for accessing the field via an interface.
+func (v *GetCommitHistoryRepositoryRefsRefConnectionEdgesRefEdgeNodeRef) GetName() string {
 	return v.Name
 }
 
-// GetTarget returns getCommitHistoryRepositoryRefsRefConnectionEdgesRefEdgeNodeRef.Target, and is useful for accessing the field via an interface.
-func (v *getCommitHistoryRepositoryRefsRefConnectionEdgesRefEdgeNodeRef) GetTarget() getCommitHistoryRepositoryRefsRefConnectionEdgesRefEdgeNodeRefTargetGitObject {
+// GetTarget returns GetCommitHistoryRepositoryRefsRefConnectionEdgesRefEdgeNodeRef.Target, and is useful for accessing the field via an interface.
+func (v *GetCommitHistoryRepositoryRefsRefConnectionEdgesRefEdgeNodeRef) GetTarget() GetCommitHistoryRepositoryRefsRefConnectionEdgesRefEdgeNodeRefTargetGitObject {
 	return v.Target
 }
 
-func (v *getCommitHistoryRepositoryRefsRefConnectionEdgesRefEdgeNodeRef) UnmarshalJSON(b []byte) error {
+func (v *GetCommitHistoryRepositoryRefsRefConnectionEdgesRefEdgeNodeRef) UnmarshalJSON(b []byte) error {
 
 	if string(b) == "null" {
 		return nil
 	}
 
 	var firstPass struct {
-		*getCommitHistoryRepositoryRefsRefConnectionEdgesRefEdgeNodeRef
+		*GetCommitHistoryRepositoryRefsRefConnectionEdgesRefEdgeNodeRef
 		Target json.RawMessage `json:"target"`
 		graphql.NoUnmarshalJSON
 	}
-	firstPass.getCommitHistoryRepositoryRefsRefConnectionEdgesRefEdgeNodeRef = v
+	firstPass.GetCommitHistoryRepositoryRefsRefConnectionEdgesRefEdgeNodeRef = v
 
 	err := json.Unmarshal(b, &firstPass)
 	if err != nil {
@@ -120,24 +96,24 @@ func (v *getCommitHistoryRepositoryRefsRefConnectionEdgesRefEdgeNodeRef) Unmarsh
 		dst := &v.Target
 		src := firstPass.Target
 		if len(src) != 0 && string(src) != "null" {
-			err = __unmarshalgetCommitHistoryRepositoryRefsRefConnectionEdgesRefEdgeNodeRefTargetGitObject(
+			err = __unmarshalGetCommitHistoryRepositoryRefsRefConnectionEdgesRefEdgeNodeRefTargetGitObject(
 				src, dst)
 			if err != nil {
 				return fmt.Errorf(
-					"unable to unmarshal getCommitHistoryRepositoryRefsRefConnectionEdgesRefEdgeNodeRef.Target: %w", err)
+					"unable to unmarshal GetCommitHistoryRepositoryRefsRefConnectionEdgesRefEdgeNodeRef.Target: %w", err)
 			}
 		}
 	}
 	return nil
 }
 
-type __premarshalgetCommitHistoryRepositoryRefsRefConnectionEdgesRefEdgeNodeRef struct {
+type __premarshalGetCommitHistoryRepositoryRefsRefConnectionEdgesRefEdgeNodeRef struct {
 	Name string `json:"name"`
 
 	Target json.RawMessage `json:"target"`
 }
 
-func (v *getCommitHistoryRepositoryRefsRefConnectionEdgesRefEdgeNodeRef) MarshalJSON() ([]byte, error) {
+func (v *GetCommitHistoryRepositoryRefsRefConnectionEdgesRefEdgeNodeRef) MarshalJSON() ([]byte, error) {
 	premarshaled, err := v.__premarshalJSON()
 	if err != nil {
 		return nil, err
@@ -145,8 +121,8 @@ func (v *getCommitHistoryRepositoryRefsRefConnectionEdgesRefEdgeNodeRef) Marshal
 	return json.Marshal(premarshaled)
 }
 
-func (v *getCommitHistoryRepositoryRefsRefConnectionEdgesRefEdgeNodeRef) __premarshalJSON() (*__premarshalgetCommitHistoryRepositoryRefsRefConnectionEdgesRefEdgeNodeRef, error) {
-	var retval __premarshalgetCommitHistoryRepositoryRefsRefConnectionEdgesRefEdgeNodeRef
+func (v *GetCommitHistoryRepositoryRefsRefConnectionEdgesRefEdgeNodeRef) __premarshalJSON() (*__premarshalGetCommitHistoryRepositoryRefsRefConnectionEdgesRefEdgeNodeRef, error) {
+	var retval __premarshalGetCommitHistoryRepositoryRefsRefConnectionEdgesRefEdgeNodeRef
 
 	retval.Name = v.Name
 	{
@@ -154,117 +130,117 @@ func (v *getCommitHistoryRepositoryRefsRefConnectionEdgesRefEdgeNodeRef) __prema
 		dst := &retval.Target
 		src := v.Target
 		var err error
-		*dst, err = __marshalgetCommitHistoryRepositoryRefsRefConnectionEdgesRefEdgeNodeRefTargetGitObject(
+		*dst, err = __marshalGetCommitHistoryRepositoryRefsRefConnectionEdgesRefEdgeNodeRefTargetGitObject(
 			&src)
 		if err != nil {
 			return nil, fmt.Errorf(
-				"unable to marshal getCommitHistoryRepositoryRefsRefConnectionEdgesRefEdgeNodeRef.Target: %w", err)
+				"unable to marshal GetCommitHistoryRepositoryRefsRefConnectionEdgesRefEdgeNodeRef.Target: %w", err)
 		}
 	}
 	return &retval, nil
 }
 
-// getCommitHistoryRepositoryRefsRefConnectionEdgesRefEdgeNodeRefTargetBlob includes the requested fields of the GraphQL type Blob.
+// GetCommitHistoryRepositoryRefsRefConnectionEdgesRefEdgeNodeRefTargetBlob includes the requested fields of the GraphQL type Blob.
 // The GraphQL type's documentation follows.
 //
 // Represents a Git blob.
-type getCommitHistoryRepositoryRefsRefConnectionEdgesRefEdgeNodeRefTargetBlob struct {
+type GetCommitHistoryRepositoryRefsRefConnectionEdgesRefEdgeNodeRefTargetBlob struct {
 	Typename string `json:"__typename"`
 }
 
-// GetTypename returns getCommitHistoryRepositoryRefsRefConnectionEdgesRefEdgeNodeRefTargetBlob.Typename, and is useful for accessing the field via an interface.
-func (v *getCommitHistoryRepositoryRefsRefConnectionEdgesRefEdgeNodeRefTargetBlob) GetTypename() string {
+// GetTypename returns GetCommitHistoryRepositoryRefsRefConnectionEdgesRefEdgeNodeRefTargetBlob.Typename, and is useful for accessing the field via an interface.
+func (v *GetCommitHistoryRepositoryRefsRefConnectionEdgesRefEdgeNodeRefTargetBlob) GetTypename() string {
 	return v.Typename
 }
 
-// getCommitHistoryRepositoryRefsRefConnectionEdgesRefEdgeNodeRefTargetCommit includes the requested fields of the GraphQL type Commit.
+// GetCommitHistoryRepositoryRefsRefConnectionEdgesRefEdgeNodeRefTargetCommit includes the requested fields of the GraphQL type Commit.
 // The GraphQL type's documentation follows.
 //
 // Represents a Git commit.
-type getCommitHistoryRepositoryRefsRefConnectionEdgesRefEdgeNodeRefTargetCommit struct {
+type GetCommitHistoryRepositoryRefsRefConnectionEdgesRefEdgeNodeRefTargetCommit struct {
 	Typename string `json:"__typename"`
 	// The linear commit history starting from (and including) this commit, in the same order as `git log`.
-	History getCommitHistoryRepositoryRefsRefConnectionEdgesRefEdgeNodeRefTargetCommitHistoryCommitHistoryConnection `json:"history"`
+	History GetCommitHistoryRepositoryRefsRefConnectionEdgesRefEdgeNodeRefTargetCommitHistoryCommitHistoryConnection `json:"history"`
 }
 
-// GetTypename returns getCommitHistoryRepositoryRefsRefConnectionEdgesRefEdgeNodeRefTargetCommit.Typename, and is useful for accessing the field via an interface.
-func (v *getCommitHistoryRepositoryRefsRefConnectionEdgesRefEdgeNodeRefTargetCommit) GetTypename() string {
+// GetTypename returns GetCommitHistoryRepositoryRefsRefConnectionEdgesRefEdgeNodeRefTargetCommit.Typename, and is useful for accessing the field via an interface.
+func (v *GetCommitHistoryRepositoryRefsRefConnectionEdgesRefEdgeNodeRefTargetCommit) GetTypename() string {
 	return v.Typename
 }
 
-// GetHistory returns getCommitHistoryRepositoryRefsRefConnectionEdgesRefEdgeNodeRefTargetCommit.History, and is useful for accessing the field via an interface.
-func (v *getCommitHistoryRepositoryRefsRefConnectionEdgesRefEdgeNodeRefTargetCommit) GetHistory() getCommitHistoryRepositoryRefsRefConnectionEdgesRefEdgeNodeRefTargetCommitHistoryCommitHistoryConnection {
+// GetHistory returns GetCommitHistoryRepositoryRefsRefConnectionEdgesRefEdgeNodeRefTargetCommit.History, and is useful for accessing the field via an interface.
+func (v *GetCommitHistoryRepositoryRefsRefConnectionEdgesRefEdgeNodeRefTargetCommit) GetHistory() GetCommitHistoryRepositoryRefsRefConnectionEdgesRefEdgeNodeRefTargetCommitHistoryCommitHistoryConnection {
 	return v.History
 }
 
-// getCommitHistoryRepositoryRefsRefConnectionEdgesRefEdgeNodeRefTargetCommitHistoryCommitHistoryConnection includes the requested fields of the GraphQL type CommitHistoryConnection.
+// GetCommitHistoryRepositoryRefsRefConnectionEdgesRefEdgeNodeRefTargetCommitHistoryCommitHistoryConnection includes the requested fields of the GraphQL type CommitHistoryConnection.
 // The GraphQL type's documentation follows.
 //
 // The connection type for Commit.
-type getCommitHistoryRepositoryRefsRefConnectionEdgesRefEdgeNodeRefTargetCommitHistoryCommitHistoryConnection struct {
+type GetCommitHistoryRepositoryRefsRefConnectionEdgesRefEdgeNodeRefTargetCommitHistoryCommitHistoryConnection struct {
 	// A list of edges.
-	Edges []getCommitHistoryRepositoryRefsRefConnectionEdgesRefEdgeNodeRefTargetCommitHistoryCommitHistoryConnectionEdgesCommitEdge `json:"edges"`
+	Edges []GetCommitHistoryRepositoryRefsRefConnectionEdgesRefEdgeNodeRefTargetCommitHistoryCommitHistoryConnectionEdgesCommitEdge `json:"edges"`
 }
 
-// GetEdges returns getCommitHistoryRepositoryRefsRefConnectionEdgesRefEdgeNodeRefTargetCommitHistoryCommitHistoryConnection.Edges, and is useful for accessing the field via an interface.
-func (v *getCommitHistoryRepositoryRefsRefConnectionEdgesRefEdgeNodeRefTargetCommitHistoryCommitHistoryConnection) GetEdges() []getCommitHistoryRepositoryRefsRefConnectionEdgesRefEdgeNodeRefTargetCommitHistoryCommitHistoryConnectionEdgesCommitEdge {
+// GetEdges returns GetCommitHistoryRepositoryRefsRefConnectionEdgesRefEdgeNodeRefTargetCommitHistoryCommitHistoryConnection.Edges, and is useful for accessing the field via an interface.
+func (v *GetCommitHistoryRepositoryRefsRefConnectionEdgesRefEdgeNodeRefTargetCommitHistoryCommitHistoryConnection) GetEdges() []GetCommitHistoryRepositoryRefsRefConnectionEdgesRefEdgeNodeRefTargetCommitHistoryCommitHistoryConnectionEdgesCommitEdge {
 	return v.Edges
 }
 
-// getCommitHistoryRepositoryRefsRefConnectionEdgesRefEdgeNodeRefTargetCommitHistoryCommitHistoryConnectionEdgesCommitEdge includes the requested fields of the GraphQL type CommitEdge.
+// GetCommitHistoryRepositoryRefsRefConnectionEdgesRefEdgeNodeRefTargetCommitHistoryCommitHistoryConnectionEdgesCommitEdge includes the requested fields of the GraphQL type CommitEdge.
 // The GraphQL type's documentation follows.
 //
 // An edge in a connection.
-type getCommitHistoryRepositoryRefsRefConnectionEdgesRefEdgeNodeRefTargetCommitHistoryCommitHistoryConnectionEdgesCommitEdge struct {
+type GetCommitHistoryRepositoryRefsRefConnectionEdgesRefEdgeNodeRefTargetCommitHistoryCommitHistoryConnectionEdgesCommitEdge struct {
 	// The item at the end of the edge.
-	Node getCommitHistoryRepositoryRefsRefConnectionEdgesRefEdgeNodeRefTargetCommitHistoryCommitHistoryConnectionEdgesCommitEdgeNodeCommit `json:"node"`
+	Node GetCommitHistoryRepositoryRefsRefConnectionEdgesRefEdgeNodeRefTargetCommitHistoryCommitHistoryConnectionEdgesCommitEdgeNodeCommit `json:"node"`
 }
 
-// GetNode returns getCommitHistoryRepositoryRefsRefConnectionEdgesRefEdgeNodeRefTargetCommitHistoryCommitHistoryConnectionEdgesCommitEdge.Node, and is useful for accessing the field via an interface.
-func (v *getCommitHistoryRepositoryRefsRefConnectionEdgesRefEdgeNodeRefTargetCommitHistoryCommitHistoryConnectionEdgesCommitEdge) GetNode() getCommitHistoryRepositoryRefsRefConnectionEdgesRefEdgeNodeRefTargetCommitHistoryCommitHistoryConnectionEdgesCommitEdgeNodeCommit {
+// GetNode returns GetCommitHistoryRepositoryRefsRefConnectionEdgesRefEdgeNodeRefTargetCommitHistoryCommitHistoryConnectionEdgesCommitEdge.Node, and is useful for accessing the field via an interface.
+func (v *GetCommitHistoryRepositoryRefsRefConnectionEdgesRefEdgeNodeRefTargetCommitHistoryCommitHistoryConnectionEdgesCommitEdge) GetNode() GetCommitHistoryRepositoryRefsRefConnectionEdgesRefEdgeNodeRefTargetCommitHistoryCommitHistoryConnectionEdgesCommitEdgeNodeCommit {
 	return v.Node
 }
 
-// getCommitHistoryRepositoryRefsRefConnectionEdgesRefEdgeNodeRefTargetCommitHistoryCommitHistoryConnectionEdgesCommitEdgeNodeCommit includes the requested fields of the GraphQL type Commit.
+// GetCommitHistoryRepositoryRefsRefConnectionEdgesRefEdgeNodeRefTargetCommitHistoryCommitHistoryConnectionEdgesCommitEdgeNodeCommit includes the requested fields of the GraphQL type Commit.
 // The GraphQL type's documentation follows.
 //
 // Represents a Git commit.
-type getCommitHistoryRepositoryRefsRefConnectionEdgesRefEdgeNodeRefTargetCommitHistoryCommitHistoryConnectionEdgesCommitEdgeNodeCommit struct {
+type GetCommitHistoryRepositoryRefsRefConnectionEdgesRefEdgeNodeRefTargetCommitHistoryCommitHistoryConnectionEdgesCommitEdgeNodeCommit struct {
 	// The datetime when this commit was committed.
 	CommittedDate time.Time `json:"committedDate"`
 }
 
-// GetCommittedDate returns getCommitHistoryRepositoryRefsRefConnectionEdgesRefEdgeNodeRefTargetCommitHistoryCommitHistoryConnectionEdgesCommitEdgeNodeCommit.CommittedDate, and is useful for accessing the field via an interface.
-func (v *getCommitHistoryRepositoryRefsRefConnectionEdgesRefEdgeNodeRefTargetCommitHistoryCommitHistoryConnectionEdgesCommitEdgeNodeCommit) GetCommittedDate() time.Time {
+// GetCommittedDate returns GetCommitHistoryRepositoryRefsRefConnectionEdgesRefEdgeNodeRefTargetCommitHistoryCommitHistoryConnectionEdgesCommitEdgeNodeCommit.CommittedDate, and is useful for accessing the field via an interface.
+func (v *GetCommitHistoryRepositoryRefsRefConnectionEdgesRefEdgeNodeRefTargetCommitHistoryCommitHistoryConnectionEdgesCommitEdgeNodeCommit) GetCommittedDate() time.Time {
 	return v.CommittedDate
 }
 
-// getCommitHistoryRepositoryRefsRefConnectionEdgesRefEdgeNodeRefTargetGitObject includes the requested fields of the GraphQL interface GitObject.
+// GetCommitHistoryRepositoryRefsRefConnectionEdgesRefEdgeNodeRefTargetGitObject includes the requested fields of the GraphQL interface GitObject.
 //
-// getCommitHistoryRepositoryRefsRefConnectionEdgesRefEdgeNodeRefTargetGitObject is implemented by the following types:
-// getCommitHistoryRepositoryRefsRefConnectionEdgesRefEdgeNodeRefTargetBlob
-// getCommitHistoryRepositoryRefsRefConnectionEdgesRefEdgeNodeRefTargetCommit
-// getCommitHistoryRepositoryRefsRefConnectionEdgesRefEdgeNodeRefTargetTag
-// getCommitHistoryRepositoryRefsRefConnectionEdgesRefEdgeNodeRefTargetTree
+// GetCommitHistoryRepositoryRefsRefConnectionEdgesRefEdgeNodeRefTargetGitObject is implemented by the following types:
+// GetCommitHistoryRepositoryRefsRefConnectionEdgesRefEdgeNodeRefTargetBlob
+// GetCommitHistoryRepositoryRefsRefConnectionEdgesRefEdgeNodeRefTargetCommit
+// GetCommitHistoryRepositoryRefsRefConnectionEdgesRefEdgeNodeRefTargetTag
+// GetCommitHistoryRepositoryRefsRefConnectionEdgesRefEdgeNodeRefTargetTree
 // The GraphQL type's documentation follows.
 //
 // Represents a Git object.
-type getCommitHistoryRepositoryRefsRefConnectionEdgesRefEdgeNodeRefTargetGitObject interface {
-	implementsGraphQLInterfacegetCommitHistoryRepositoryRefsRefConnectionEdgesRefEdgeNodeRefTargetGitObject()
+type GetCommitHistoryRepositoryRefsRefConnectionEdgesRefEdgeNodeRefTargetGitObject interface {
+	implementsGraphQLInterfaceGetCommitHistoryRepositoryRefsRefConnectionEdgesRefEdgeNodeRefTargetGitObject()
 	// GetTypename returns the receiver's concrete GraphQL type-name (see interface doc for possible values).
 	GetTypename() string
 }
 
-func (v *getCommitHistoryRepositoryRefsRefConnectionEdgesRefEdgeNodeRefTargetBlob) implementsGraphQLInterfacegetCommitHistoryRepositoryRefsRefConnectionEdgesRefEdgeNodeRefTargetGitObject() {
+func (v *GetCommitHistoryRepositoryRefsRefConnectionEdgesRefEdgeNodeRefTargetBlob) implementsGraphQLInterfaceGetCommitHistoryRepositoryRefsRefConnectionEdgesRefEdgeNodeRefTargetGitObject() {
 }
-func (v *getCommitHistoryRepositoryRefsRefConnectionEdgesRefEdgeNodeRefTargetCommit) implementsGraphQLInterfacegetCommitHistoryRepositoryRefsRefConnectionEdgesRefEdgeNodeRefTargetGitObject() {
+func (v *GetCommitHistoryRepositoryRefsRefConnectionEdgesRefEdgeNodeRefTargetCommit) implementsGraphQLInterfaceGetCommitHistoryRepositoryRefsRefConnectionEdgesRefEdgeNodeRefTargetGitObject() {
 }
-func (v *getCommitHistoryRepositoryRefsRefConnectionEdgesRefEdgeNodeRefTargetTag) implementsGraphQLInterfacegetCommitHistoryRepositoryRefsRefConnectionEdgesRefEdgeNodeRefTargetGitObject() {
+func (v *GetCommitHistoryRepositoryRefsRefConnectionEdgesRefEdgeNodeRefTargetTag) implementsGraphQLInterfaceGetCommitHistoryRepositoryRefsRefConnectionEdgesRefEdgeNodeRefTargetGitObject() {
 }
-func (v *getCommitHistoryRepositoryRefsRefConnectionEdgesRefEdgeNodeRefTargetTree) implementsGraphQLInterfacegetCommitHistoryRepositoryRefsRefConnectionEdgesRefEdgeNodeRefTargetGitObject() {
+func (v *GetCommitHistoryRepositoryRefsRefConnectionEdgesRefEdgeNodeRefTargetTree) implementsGraphQLInterfaceGetCommitHistoryRepositoryRefsRefConnectionEdgesRefEdgeNodeRefTargetGitObject() {
 }
 
-func __unmarshalgetCommitHistoryRepositoryRefsRefConnectionEdgesRefEdgeNodeRefTargetGitObject(b []byte, v *getCommitHistoryRepositoryRefsRefConnectionEdgesRefEdgeNodeRefTargetGitObject) error {
+func __unmarshalGetCommitHistoryRepositoryRefsRefConnectionEdgesRefEdgeNodeRefTargetGitObject(b []byte, v *GetCommitHistoryRepositoryRefsRefConnectionEdgesRefEdgeNodeRefTargetGitObject) error {
 	if string(b) == "null" {
 		return nil
 	}
@@ -279,182 +255,182 @@ func __unmarshalgetCommitHistoryRepositoryRefsRefConnectionEdgesRefEdgeNodeRefTa
 
 	switch tn.TypeName {
 	case "Blob":
-		*v = new(getCommitHistoryRepositoryRefsRefConnectionEdgesRefEdgeNodeRefTargetBlob)
+		*v = new(GetCommitHistoryRepositoryRefsRefConnectionEdgesRefEdgeNodeRefTargetBlob)
 		return json.Unmarshal(b, *v)
 	case "Commit":
-		*v = new(getCommitHistoryRepositoryRefsRefConnectionEdgesRefEdgeNodeRefTargetCommit)
+		*v = new(GetCommitHistoryRepositoryRefsRefConnectionEdgesRefEdgeNodeRefTargetCommit)
 		return json.Unmarshal(b, *v)
 	case "Tag":
-		*v = new(getCommitHistoryRepositoryRefsRefConnectionEdgesRefEdgeNodeRefTargetTag)
+		*v = new(GetCommitHistoryRepositoryRefsRefConnectionEdgesRefEdgeNodeRefTargetTag)
 		return json.Unmarshal(b, *v)
 	case "Tree":
-		*v = new(getCommitHistoryRepositoryRefsRefConnectionEdgesRefEdgeNodeRefTargetTree)
+		*v = new(GetCommitHistoryRepositoryRefsRefConnectionEdgesRefEdgeNodeRefTargetTree)
 		return json.Unmarshal(b, *v)
 	case "":
 		return fmt.Errorf(
 			"response was missing GitObject.__typename")
 	default:
 		return fmt.Errorf(
-			`unexpected concrete type for getCommitHistoryRepositoryRefsRefConnectionEdgesRefEdgeNodeRefTargetGitObject: "%v"`, tn.TypeName)
+			`unexpected concrete type for GetCommitHistoryRepositoryRefsRefConnectionEdgesRefEdgeNodeRefTargetGitObject: "%v"`, tn.TypeName)
 	}
 }
 
-func __marshalgetCommitHistoryRepositoryRefsRefConnectionEdgesRefEdgeNodeRefTargetGitObject(v *getCommitHistoryRepositoryRefsRefConnectionEdgesRefEdgeNodeRefTargetGitObject) ([]byte, error) {
+func __marshalGetCommitHistoryRepositoryRefsRefConnectionEdgesRefEdgeNodeRefTargetGitObject(v *GetCommitHistoryRepositoryRefsRefConnectionEdgesRefEdgeNodeRefTargetGitObject) ([]byte, error) {
 
 	var typename string
 	switch v := (*v).(type) {
-	case *getCommitHistoryRepositoryRefsRefConnectionEdgesRefEdgeNodeRefTargetBlob:
+	case *GetCommitHistoryRepositoryRefsRefConnectionEdgesRefEdgeNodeRefTargetBlob:
 		typename = "Blob"
 
 		result := struct {
 			TypeName string `json:"__typename"`
-			*getCommitHistoryRepositoryRefsRefConnectionEdgesRefEdgeNodeRefTargetBlob
+			*GetCommitHistoryRepositoryRefsRefConnectionEdgesRefEdgeNodeRefTargetBlob
 		}{typename, v}
 		return json.Marshal(result)
-	case *getCommitHistoryRepositoryRefsRefConnectionEdgesRefEdgeNodeRefTargetCommit:
+	case *GetCommitHistoryRepositoryRefsRefConnectionEdgesRefEdgeNodeRefTargetCommit:
 		typename = "Commit"
 
 		result := struct {
 			TypeName string `json:"__typename"`
-			*getCommitHistoryRepositoryRefsRefConnectionEdgesRefEdgeNodeRefTargetCommit
+			*GetCommitHistoryRepositoryRefsRefConnectionEdgesRefEdgeNodeRefTargetCommit
 		}{typename, v}
 		return json.Marshal(result)
-	case *getCommitHistoryRepositoryRefsRefConnectionEdgesRefEdgeNodeRefTargetTag:
+	case *GetCommitHistoryRepositoryRefsRefConnectionEdgesRefEdgeNodeRefTargetTag:
 		typename = "Tag"
 
 		result := struct {
 			TypeName string `json:"__typename"`
-			*getCommitHistoryRepositoryRefsRefConnectionEdgesRefEdgeNodeRefTargetTag
+			*GetCommitHistoryRepositoryRefsRefConnectionEdgesRefEdgeNodeRefTargetTag
 		}{typename, v}
 		return json.Marshal(result)
-	case *getCommitHistoryRepositoryRefsRefConnectionEdgesRefEdgeNodeRefTargetTree:
+	case *GetCommitHistoryRepositoryRefsRefConnectionEdgesRefEdgeNodeRefTargetTree:
 		typename = "Tree"
 
 		result := struct {
 			TypeName string `json:"__typename"`
-			*getCommitHistoryRepositoryRefsRefConnectionEdgesRefEdgeNodeRefTargetTree
+			*GetCommitHistoryRepositoryRefsRefConnectionEdgesRefEdgeNodeRefTargetTree
 		}{typename, v}
 		return json.Marshal(result)
 	case nil:
 		return []byte("null"), nil
 	default:
 		return nil, fmt.Errorf(
-			`unexpected concrete type for getCommitHistoryRepositoryRefsRefConnectionEdgesRefEdgeNodeRefTargetGitObject: "%T"`, v)
+			`unexpected concrete type for GetCommitHistoryRepositoryRefsRefConnectionEdgesRefEdgeNodeRefTargetGitObject: "%T"`, v)
 	}
 }
 
-// getCommitHistoryRepositoryRefsRefConnectionEdgesRefEdgeNodeRefTargetTag includes the requested fields of the GraphQL type Tag.
+// GetCommitHistoryRepositoryRefsRefConnectionEdgesRefEdgeNodeRefTargetTag includes the requested fields of the GraphQL type Tag.
 // The GraphQL type's documentation follows.
 //
 // Represents a Git tag.
-type getCommitHistoryRepositoryRefsRefConnectionEdgesRefEdgeNodeRefTargetTag struct {
+type GetCommitHistoryRepositoryRefsRefConnectionEdgesRefEdgeNodeRefTargetTag struct {
 	Typename string `json:"__typename"`
 }
 
-// GetTypename returns getCommitHistoryRepositoryRefsRefConnectionEdgesRefEdgeNodeRefTargetTag.Typename, and is useful for accessing the field via an interface.
-func (v *getCommitHistoryRepositoryRefsRefConnectionEdgesRefEdgeNodeRefTargetTag) GetTypename() string {
+// GetTypename returns GetCommitHistoryRepositoryRefsRefConnectionEdgesRefEdgeNodeRefTargetTag.Typename, and is useful for accessing the field via an interface.
+func (v *GetCommitHistoryRepositoryRefsRefConnectionEdgesRefEdgeNodeRefTargetTag) GetTypename() string {
 	return v.Typename
 }
 
-// getCommitHistoryRepositoryRefsRefConnectionEdgesRefEdgeNodeRefTargetTree includes the requested fields of the GraphQL type Tree.
+// GetCommitHistoryRepositoryRefsRefConnectionEdgesRefEdgeNodeRefTargetTree includes the requested fields of the GraphQL type Tree.
 // The GraphQL type's documentation follows.
 //
 // Represents a Git tree.
-type getCommitHistoryRepositoryRefsRefConnectionEdgesRefEdgeNodeRefTargetTree struct {
+type GetCommitHistoryRepositoryRefsRefConnectionEdgesRefEdgeNodeRefTargetTree struct {
 	Typename string `json:"__typename"`
 }
 
-// GetTypename returns getCommitHistoryRepositoryRefsRefConnectionEdgesRefEdgeNodeRefTargetTree.Typename, and is useful for accessing the field via an interface.
-func (v *getCommitHistoryRepositoryRefsRefConnectionEdgesRefEdgeNodeRefTargetTree) GetTypename() string {
+// GetTypename returns GetCommitHistoryRepositoryRefsRefConnectionEdgesRefEdgeNodeRefTargetTree.Typename, and is useful for accessing the field via an interface.
+func (v *GetCommitHistoryRepositoryRefsRefConnectionEdgesRefEdgeNodeRefTargetTree) GetTypename() string {
 	return v.Typename
 }
 
-// getCommitHistoryResponse is returned by getCommitHistory on success.
-type getCommitHistoryResponse struct {
+// GetCommitHistoryResponse is returned by GetCommitHistory on success.
+type GetCommitHistoryResponse struct {
 	// Lookup a given repository by the owner and repository name.
-	Repository getCommitHistoryRepository `json:"repository"`
+	Repository GetCommitHistoryRepository `json:"repository"`
 }
 
-// GetRepository returns getCommitHistoryResponse.Repository, and is useful for accessing the field via an interface.
-func (v *getCommitHistoryResponse) GetRepository() getCommitHistoryRepository { return v.Repository }
+// GetRepository returns GetCommitHistoryResponse.Repository, and is useful for accessing the field via an interface.
+func (v *GetCommitHistoryResponse) GetRepository() GetCommitHistoryRepository { return v.Repository }
 
-// getContributedReposResponse is returned by getContributedRepos on success.
-type getContributedReposResponse struct {
+// GetContributedReposResponse is returned by GetContributedRepos on success.
+type GetContributedReposResponse struct {
 	// Lookup a user by login.
-	User getContributedReposUser `json:"user"`
+	User GetContributedReposUser `json:"user"`
 }
 
-// GetUser returns getContributedReposResponse.User, and is useful for accessing the field via an interface.
-func (v *getContributedReposResponse) GetUser() getContributedReposUser { return v.User }
+// GetUser returns GetContributedReposResponse.User, and is useful for accessing the field via an interface.
+func (v *GetContributedReposResponse) GetUser() GetContributedReposUser { return v.User }
 
-// getContributedReposUser includes the requested fields of the GraphQL type User.
+// GetContributedReposUser includes the requested fields of the GraphQL type User.
 // The GraphQL type's documentation follows.
 //
 // A user is an individual's account on GitHub that owns repositories and can make new content.
-type getContributedReposUser struct {
+type GetContributedReposUser struct {
 	// A list of repositories that the user recently contributed to.
-	RepositoriesContributedTo getContributedReposUserRepositoriesContributedToRepositoryConnection `json:"repositoriesContributedTo"`
+	RepositoriesContributedTo GetContributedReposUserRepositoriesContributedToRepositoryConnection `json:"repositoriesContributedTo"`
 }
 
-// GetRepositoriesContributedTo returns getContributedReposUser.RepositoriesContributedTo, and is useful for accessing the field via an interface.
-func (v *getContributedReposUser) GetRepositoriesContributedTo() getContributedReposUserRepositoriesContributedToRepositoryConnection {
+// GetRepositoriesContributedTo returns GetContributedReposUser.RepositoriesContributedTo, and is useful for accessing the field via an interface.
+func (v *GetContributedReposUser) GetRepositoriesContributedTo() GetContributedReposUserRepositoriesContributedToRepositoryConnection {
 	return v.RepositoriesContributedTo
 }
 
-// getContributedReposUserRepositoriesContributedToRepositoryConnection includes the requested fields of the GraphQL type RepositoryConnection.
+// GetContributedReposUserRepositoriesContributedToRepositoryConnection includes the requested fields of the GraphQL type RepositoryConnection.
 // The GraphQL type's documentation follows.
 //
 // A list of repositories owned by the subject.
-type getContributedReposUserRepositoriesContributedToRepositoryConnection struct {
+type GetContributedReposUserRepositoriesContributedToRepositoryConnection struct {
 	// A list of nodes.
-	Nodes []getContributedReposUserRepositoriesContributedToRepositoryConnectionNodesRepository `json:"nodes"`
+	Nodes []GetContributedReposUserRepositoriesContributedToRepositoryConnectionNodesRepository `json:"nodes"`
 }
 
-// GetNodes returns getContributedReposUserRepositoriesContributedToRepositoryConnection.Nodes, and is useful for accessing the field via an interface.
-func (v *getContributedReposUserRepositoriesContributedToRepositoryConnection) GetNodes() []getContributedReposUserRepositoriesContributedToRepositoryConnectionNodesRepository {
+// GetNodes returns GetContributedReposUserRepositoriesContributedToRepositoryConnection.Nodes, and is useful for accessing the field via an interface.
+func (v *GetContributedReposUserRepositoriesContributedToRepositoryConnection) GetNodes() []GetContributedReposUserRepositoriesContributedToRepositoryConnectionNodesRepository {
 	return v.Nodes
 }
 
-// getContributedReposUserRepositoriesContributedToRepositoryConnectionNodesRepository includes the requested fields of the GraphQL type Repository.
+// GetContributedReposUserRepositoriesContributedToRepositoryConnectionNodesRepository includes the requested fields of the GraphQL type Repository.
 // The GraphQL type's documentation follows.
 //
 // A repository contains the content for a project.
-type getContributedReposUserRepositoriesContributedToRepositoryConnectionNodesRepository struct {
+type GetContributedReposUserRepositoriesContributedToRepositoryConnectionNodesRepository struct {
 	// Identifies if the repository is a fork.
 	IsFork bool `json:"isFork"`
 	// The name of the repository.
 	Name string `json:"name"`
 	// The User owner of the repository.
-	Owner getContributedReposUserRepositoriesContributedToRepositoryConnectionNodesRepositoryOwner `json:"-"`
+	Owner GetContributedReposUserRepositoriesContributedToRepositoryConnectionNodesRepositoryOwner `json:"-"`
 }
 
-// GetIsFork returns getContributedReposUserRepositoriesContributedToRepositoryConnectionNodesRepository.IsFork, and is useful for accessing the field via an interface.
-func (v *getContributedReposUserRepositoriesContributedToRepositoryConnectionNodesRepository) GetIsFork() bool {
+// GetIsFork returns GetContributedReposUserRepositoriesContributedToRepositoryConnectionNodesRepository.IsFork, and is useful for accessing the field via an interface.
+func (v *GetContributedReposUserRepositoriesContributedToRepositoryConnectionNodesRepository) GetIsFork() bool {
 	return v.IsFork
 }
 
-// GetName returns getContributedReposUserRepositoriesContributedToRepositoryConnectionNodesRepository.Name, and is useful for accessing the field via an interface.
-func (v *getContributedReposUserRepositoriesContributedToRepositoryConnectionNodesRepository) GetName() string {
+// GetName returns GetContributedReposUserRepositoriesContributedToRepositoryConnectionNodesRepository.Name, and is useful for accessing the field via an interface.
+func (v *GetContributedReposUserRepositoriesContributedToRepositoryConnectionNodesRepository) GetName() string {
 	return v.Name
 }
 
-// GetOwner returns getContributedReposUserRepositoriesContributedToRepositoryConnectionNodesRepository.Owner, and is useful for accessing the field via an interface.
-func (v *getContributedReposUserRepositoriesContributedToRepositoryConnectionNodesRepository) GetOwner() getContributedReposUserRepositoriesContributedToRepositoryConnectionNodesRepositoryOwner {
+// GetOwner returns GetContributedReposUserRepositoriesContributedToRepositoryConnectionNodesRepository.Owner, and is useful for accessing the field via an interface.
+func (v *GetContributedReposUserRepositoriesContributedToRepositoryConnectionNodesRepository) GetOwner() GetContributedReposUserRepositoriesContributedToRepositoryConnectionNodesRepositoryOwner {
 	return v.Owner
 }
 
-func (v *getContributedReposUserRepositoriesContributedToRepositoryConnectionNodesRepository) UnmarshalJSON(b []byte) error {
+func (v *GetContributedReposUserRepositoriesContributedToRepositoryConnectionNodesRepository) UnmarshalJSON(b []byte) error {
 
 	if string(b) == "null" {
 		return nil
 	}
 
 	var firstPass struct {
-		*getContributedReposUserRepositoriesContributedToRepositoryConnectionNodesRepository
+		*GetContributedReposUserRepositoriesContributedToRepositoryConnectionNodesRepository
 		Owner json.RawMessage `json:"owner"`
 		graphql.NoUnmarshalJSON
 	}
-	firstPass.getContributedReposUserRepositoriesContributedToRepositoryConnectionNodesRepository = v
+	firstPass.GetContributedReposUserRepositoriesContributedToRepositoryConnectionNodesRepository = v
 
 	err := json.Unmarshal(b, &firstPass)
 	if err != nil {
@@ -465,18 +441,18 @@ func (v *getContributedReposUserRepositoriesContributedToRepositoryConnectionNod
 		dst := &v.Owner
 		src := firstPass.Owner
 		if len(src) != 0 && string(src) != "null" {
-			err = __unmarshalgetContributedReposUserRepositoriesContributedToRepositoryConnectionNodesRepositoryOwner(
+			err = __unmarshalGetContributedReposUserRepositoriesContributedToRepositoryConnectionNodesRepositoryOwner(
 				src, dst)
 			if err != nil {
 				return fmt.Errorf(
-					"unable to unmarshal getContributedReposUserRepositoriesContributedToRepositoryConnectionNodesRepository.Owner: %w", err)
+					"unable to unmarshal GetContributedReposUserRepositoriesContributedToRepositoryConnectionNodesRepository.Owner: %w", err)
 			}
 		}
 	}
 	return nil
 }
 
-type __premarshalgetContributedReposUserRepositoriesContributedToRepositoryConnectionNodesRepository struct {
+type __premarshalGetContributedReposUserRepositoriesContributedToRepositoryConnectionNodesRepository struct {
 	IsFork bool `json:"isFork"`
 
 	Name string `json:"name"`
@@ -484,7 +460,7 @@ type __premarshalgetContributedReposUserRepositoriesContributedToRepositoryConne
 	Owner json.RawMessage `json:"owner"`
 }
 
-func (v *getContributedReposUserRepositoriesContributedToRepositoryConnectionNodesRepository) MarshalJSON() ([]byte, error) {
+func (v *GetContributedReposUserRepositoriesContributedToRepositoryConnectionNodesRepository) MarshalJSON() ([]byte, error) {
 	premarshaled, err := v.__premarshalJSON()
 	if err != nil {
 		return nil, err
@@ -492,8 +468,8 @@ func (v *getContributedReposUserRepositoriesContributedToRepositoryConnectionNod
 	return json.Marshal(premarshaled)
 }
 
-func (v *getContributedReposUserRepositoriesContributedToRepositoryConnectionNodesRepository) __premarshalJSON() (*__premarshalgetContributedReposUserRepositoriesContributedToRepositoryConnectionNodesRepository, error) {
-	var retval __premarshalgetContributedReposUserRepositoriesContributedToRepositoryConnectionNodesRepository
+func (v *GetContributedReposUserRepositoriesContributedToRepositoryConnectionNodesRepository) __premarshalJSON() (*__premarshalGetContributedReposUserRepositoriesContributedToRepositoryConnectionNodesRepository, error) {
+	var retval __premarshalGetContributedReposUserRepositoriesContributedToRepositoryConnectionNodesRepository
 
 	retval.IsFork = v.IsFork
 	retval.Name = v.Name
@@ -502,26 +478,26 @@ func (v *getContributedReposUserRepositoriesContributedToRepositoryConnectionNod
 		dst := &retval.Owner
 		src := v.Owner
 		var err error
-		*dst, err = __marshalgetContributedReposUserRepositoriesContributedToRepositoryConnectionNodesRepositoryOwner(
+		*dst, err = __marshalGetContributedReposUserRepositoriesContributedToRepositoryConnectionNodesRepositoryOwner(
 			&src)
 		if err != nil {
 			return nil, fmt.Errorf(
-				"unable to marshal getContributedReposUserRepositoriesContributedToRepositoryConnectionNodesRepository.Owner: %w", err)
+				"unable to marshal GetContributedReposUserRepositoriesContributedToRepositoryConnectionNodesRepository.Owner: %w", err)
 		}
 	}
 	return &retval, nil
 }
 
-// getContributedReposUserRepositoriesContributedToRepositoryConnectionNodesRepositoryOwner includes the requested fields of the GraphQL interface RepositoryOwner.
+// GetContributedReposUserRepositoriesContributedToRepositoryConnectionNodesRepositoryOwner includes the requested fields of the GraphQL interface RepositoryOwner.
 //
-// getContributedReposUserRepositoriesContributedToRepositoryConnectionNodesRepositoryOwner is implemented by the following types:
-// getContributedReposUserRepositoriesContributedToRepositoryConnectionNodesRepositoryOwnerOrganization
-// getContributedReposUserRepositoriesContributedToRepositoryConnectionNodesRepositoryOwnerUser
+// GetContributedReposUserRepositoriesContributedToRepositoryConnectionNodesRepositoryOwner is implemented by the following types:
+// GetContributedReposUserRepositoriesContributedToRepositoryConnectionNodesRepositoryOwnerOrganization
+// GetContributedReposUserRepositoriesContributedToRepositoryConnectionNodesRepositoryOwnerUser
 // The GraphQL type's documentation follows.
 //
 // Represents an owner of a Repository.
-type getContributedReposUserRepositoriesContributedToRepositoryConnectionNodesRepositoryOwner interface {
-	implementsGraphQLInterfacegetContributedReposUserRepositoriesContributedToRepositoryConnectionNodesRepositoryOwner()
+type GetContributedReposUserRepositoriesContributedToRepositoryConnectionNodesRepositoryOwner interface {
+	implementsGraphQLInterfaceGetContributedReposUserRepositoriesContributedToRepositoryConnectionNodesRepositoryOwner()
 	// GetTypename returns the receiver's concrete GraphQL type-name (see interface doc for possible values).
 	GetTypename() string
 	// GetLogin returns the interface-field "login" from its implementation.
@@ -531,12 +507,12 @@ type getContributedReposUserRepositoriesContributedToRepositoryConnectionNodesRe
 	GetLogin() string
 }
 
-func (v *getContributedReposUserRepositoriesContributedToRepositoryConnectionNodesRepositoryOwnerOrganization) implementsGraphQLInterfacegetContributedReposUserRepositoriesContributedToRepositoryConnectionNodesRepositoryOwner() {
+func (v *GetContributedReposUserRepositoriesContributedToRepositoryConnectionNodesRepositoryOwnerOrganization) implementsGraphQLInterfaceGetContributedReposUserRepositoriesContributedToRepositoryConnectionNodesRepositoryOwner() {
 }
-func (v *getContributedReposUserRepositoriesContributedToRepositoryConnectionNodesRepositoryOwnerUser) implementsGraphQLInterfacegetContributedReposUserRepositoriesContributedToRepositoryConnectionNodesRepositoryOwner() {
+func (v *GetContributedReposUserRepositoriesContributedToRepositoryConnectionNodesRepositoryOwnerUser) implementsGraphQLInterfaceGetContributedReposUserRepositoriesContributedToRepositoryConnectionNodesRepositoryOwner() {
 }
 
-func __unmarshalgetContributedReposUserRepositoriesContributedToRepositoryConnectionNodesRepositoryOwner(b []byte, v *getContributedReposUserRepositoriesContributedToRepositoryConnectionNodesRepositoryOwner) error {
+func __unmarshalGetContributedReposUserRepositoriesContributedToRepositoryConnectionNodesRepositoryOwner(b []byte, v *GetContributedReposUserRepositoriesContributedToRepositoryConnectionNodesRepositoryOwner) error {
 	if string(b) == "null" {
 		return nil
 	}
@@ -551,117 +527,141 @@ func __unmarshalgetContributedReposUserRepositoriesContributedToRepositoryConnec
 
 	switch tn.TypeName {
 	case "Organization":
-		*v = new(getContributedReposUserRepositoriesContributedToRepositoryConnectionNodesRepositoryOwnerOrganization)
+		*v = new(GetContributedReposUserRepositoriesContributedToRepositoryConnectionNodesRepositoryOwnerOrganization)
 		return json.Unmarshal(b, *v)
 	case "User":
-		*v = new(getContributedReposUserRepositoriesContributedToRepositoryConnectionNodesRepositoryOwnerUser)
+		*v = new(GetContributedReposUserRepositoriesContributedToRepositoryConnectionNodesRepositoryOwnerUser)
 		return json.Unmarshal(b, *v)
 	case "":
 		return fmt.Errorf(
 			"response was missing RepositoryOwner.__typename")
 	default:
 		return fmt.Errorf(
-			`unexpected concrete type for getContributedReposUserRepositoriesContributedToRepositoryConnectionNodesRepositoryOwner: "%v"`, tn.TypeName)
+			`unexpected concrete type for GetContributedReposUserRepositoriesContributedToRepositoryConnectionNodesRepositoryOwner: "%v"`, tn.TypeName)
 	}
 }
 
-func __marshalgetContributedReposUserRepositoriesContributedToRepositoryConnectionNodesRepositoryOwner(v *getContributedReposUserRepositoriesContributedToRepositoryConnectionNodesRepositoryOwner) ([]byte, error) {
+func __marshalGetContributedReposUserRepositoriesContributedToRepositoryConnectionNodesRepositoryOwner(v *GetContributedReposUserRepositoriesContributedToRepositoryConnectionNodesRepositoryOwner) ([]byte, error) {
 
 	var typename string
 	switch v := (*v).(type) {
-	case *getContributedReposUserRepositoriesContributedToRepositoryConnectionNodesRepositoryOwnerOrganization:
+	case *GetContributedReposUserRepositoriesContributedToRepositoryConnectionNodesRepositoryOwnerOrganization:
 		typename = "Organization"
 
 		result := struct {
 			TypeName string `json:"__typename"`
-			*getContributedReposUserRepositoriesContributedToRepositoryConnectionNodesRepositoryOwnerOrganization
+			*GetContributedReposUserRepositoriesContributedToRepositoryConnectionNodesRepositoryOwnerOrganization
 		}{typename, v}
 		return json.Marshal(result)
-	case *getContributedReposUserRepositoriesContributedToRepositoryConnectionNodesRepositoryOwnerUser:
+	case *GetContributedReposUserRepositoriesContributedToRepositoryConnectionNodesRepositoryOwnerUser:
 		typename = "User"
 
 		result := struct {
 			TypeName string `json:"__typename"`
-			*getContributedReposUserRepositoriesContributedToRepositoryConnectionNodesRepositoryOwnerUser
+			*GetContributedReposUserRepositoriesContributedToRepositoryConnectionNodesRepositoryOwnerUser
 		}{typename, v}
 		return json.Marshal(result)
 	case nil:
 		return []byte("null"), nil
 	default:
 		return nil, fmt.Errorf(
-			`unexpected concrete type for getContributedReposUserRepositoriesContributedToRepositoryConnectionNodesRepositoryOwner: "%T"`, v)
+			`unexpected concrete type for GetContributedReposUserRepositoriesContributedToRepositoryConnectionNodesRepositoryOwner: "%T"`, v)
 	}
 }
 
-// getContributedReposUserRepositoriesContributedToRepositoryConnectionNodesRepositoryOwnerOrganization includes the requested fields of the GraphQL type Organization.
+// GetContributedReposUserRepositoriesContributedToRepositoryConnectionNodesRepositoryOwnerOrganization includes the requested fields of the GraphQL type Organization.
 // The GraphQL type's documentation follows.
 //
 // An account on GitHub, with one or more owners, that has repositories, members and teams.
-type getContributedReposUserRepositoriesContributedToRepositoryConnectionNodesRepositoryOwnerOrganization struct {
+type GetContributedReposUserRepositoriesContributedToRepositoryConnectionNodesRepositoryOwnerOrganization struct {
 	Typename string `json:"__typename"`
 	// The username used to login.
 	Login string `json:"login"`
 }
 
-// GetTypename returns getContributedReposUserRepositoriesContributedToRepositoryConnectionNodesRepositoryOwnerOrganization.Typename, and is useful for accessing the field via an interface.
-func (v *getContributedReposUserRepositoriesContributedToRepositoryConnectionNodesRepositoryOwnerOrganization) GetTypename() string {
+// GetTypename returns GetContributedReposUserRepositoriesContributedToRepositoryConnectionNodesRepositoryOwnerOrganization.Typename, and is useful for accessing the field via an interface.
+func (v *GetContributedReposUserRepositoriesContributedToRepositoryConnectionNodesRepositoryOwnerOrganization) GetTypename() string {
 	return v.Typename
 }
 
-// GetLogin returns getContributedReposUserRepositoriesContributedToRepositoryConnectionNodesRepositoryOwnerOrganization.Login, and is useful for accessing the field via an interface.
-func (v *getContributedReposUserRepositoriesContributedToRepositoryConnectionNodesRepositoryOwnerOrganization) GetLogin() string {
+// GetLogin returns GetContributedReposUserRepositoriesContributedToRepositoryConnectionNodesRepositoryOwnerOrganization.Login, and is useful for accessing the field via an interface.
+func (v *GetContributedReposUserRepositoriesContributedToRepositoryConnectionNodesRepositoryOwnerOrganization) GetLogin() string {
 	return v.Login
 }
 
-// getContributedReposUserRepositoriesContributedToRepositoryConnectionNodesRepositoryOwnerUser includes the requested fields of the GraphQL type User.
+// GetContributedReposUserRepositoriesContributedToRepositoryConnectionNodesRepositoryOwnerUser includes the requested fields of the GraphQL type User.
 // The GraphQL type's documentation follows.
 //
 // A user is an individual's account on GitHub that owns repositories and can make new content.
-type getContributedReposUserRepositoriesContributedToRepositoryConnectionNodesRepositoryOwnerUser struct {
+type GetContributedReposUserRepositoriesContributedToRepositoryConnectionNodesRepositoryOwnerUser struct {
 	Typename string `json:"__typename"`
 	// The username used to login.
 	Login string `json:"login"`
 }
 
-// GetTypename returns getContributedReposUserRepositoriesContributedToRepositoryConnectionNodesRepositoryOwnerUser.Typename, and is useful for accessing the field via an interface.
-func (v *getContributedReposUserRepositoriesContributedToRepositoryConnectionNodesRepositoryOwnerUser) GetTypename() string {
+// GetTypename returns GetContributedReposUserRepositoriesContributedToRepositoryConnectionNodesRepositoryOwnerUser.Typename, and is useful for accessing the field via an interface.
+func (v *GetContributedReposUserRepositoriesContributedToRepositoryConnectionNodesRepositoryOwnerUser) GetTypename() string {
 	return v.Typename
 }
 
-// GetLogin returns getContributedReposUserRepositoriesContributedToRepositoryConnectionNodesRepositoryOwnerUser.Login, and is useful for accessing the field via an interface.
-func (v *getContributedReposUserRepositoriesContributedToRepositoryConnectionNodesRepositoryOwnerUser) GetLogin() string {
+// GetLogin returns GetContributedReposUserRepositoriesContributedToRepositoryConnectionNodesRepositoryOwnerUser.Login, and is useful for accessing the field via an interface.
+func (v *GetContributedReposUserRepositoriesContributedToRepositoryConnectionNodesRepositoryOwnerUser) GetLogin() string {
 	return v.Login
 }
 
-// getUserInfoResponse is returned by getUserInfo on success.
-type getUserInfoResponse struct {
+// GetUserInfoResponse is returned by GetUserInfo on success.
+type GetUserInfoResponse struct {
 	// The currently authenticated user.
-	Viewer getUserInfoViewerUser `json:"viewer"`
+	Viewer GetUserInfoViewerUser `json:"viewer"`
 }
 
-// GetViewer returns getUserInfoResponse.Viewer, and is useful for accessing the field via an interface.
-func (v *getUserInfoResponse) GetViewer() getUserInfoViewerUser { return v.Viewer }
+// GetViewer returns GetUserInfoResponse.Viewer, and is useful for accessing the field via an interface.
+func (v *GetUserInfoResponse) GetViewer() GetUserInfoViewerUser { return v.Viewer }
 
-// getUserInfoViewerUser includes the requested fields of the GraphQL type User.
+// GetUserInfoViewerUser includes the requested fields of the GraphQL type User.
 // The GraphQL type's documentation follows.
 //
 // A user is an individual's account on GitHub that owns repositories and can make new content.
-type getUserInfoViewerUser struct {
+type GetUserInfoViewerUser struct {
 	// The username used to login.
 	Login string `json:"login"`
 	// The Node ID of the User object
 	Id string `json:"id"`
 }
 
-// GetLogin returns getUserInfoViewerUser.Login, and is useful for accessing the field via an interface.
-func (v *getUserInfoViewerUser) GetLogin() string { return v.Login }
+// GetLogin returns GetUserInfoViewerUser.Login, and is useful for accessing the field via an interface.
+func (v *GetUserInfoViewerUser) GetLogin() string { return v.Login }
 
-// GetId returns getUserInfoViewerUser.Id, and is useful for accessing the field via an interface.
-func (v *getUserInfoViewerUser) GetId() string { return v.Id }
+// GetId returns GetUserInfoViewerUser.Id, and is useful for accessing the field via an interface.
+func (v *GetUserInfoViewerUser) GetId() string { return v.Id }
 
-// The query or mutation executed by getCommitHistory.
-const getCommitHistory_Operation = `
-query getCommitHistory ($owner: String!, $name: String!, $id: ID!) {
+// __GetCommitHistoryInput is used internally by genqlient
+type __GetCommitHistoryInput struct {
+	Owner string `json:"owner"`
+	Name  string `json:"name"`
+	Id    string `json:"id"`
+}
+
+// GetOwner returns __GetCommitHistoryInput.Owner, and is useful for accessing the field via an interface.
+func (v *__GetCommitHistoryInput) GetOwner() string { return v.Owner }
+
+// GetName returns __GetCommitHistoryInput.Name, and is useful for accessing the field via an interface.
+func (v *__GetCommitHistoryInput) GetName() string { return v.Name }
+
+// GetId returns __GetCommitHistoryInput.Id, and is useful for accessing the field via an interface.
+func (v *__GetCommitHistoryInput) GetId() string { return v.Id }
+
+// __GetContributedReposInput is used internally by genqlient
+type __GetContributedReposInput struct {
+	Username string `json:"username"`
+}
+
+// GetUsername returns __GetContributedReposInput.Username, and is useful for accessing the field via an interface.
+func (v *__GetContributedReposInput) GetUsername() string { return v.Username }
+
+// The query or mutation executed by GetCommitHistory.
+const GetCommitHistory_Operation = `
+query GetCommitHistory ($owner: String!, $name: String!, $id: ID!) {
 	repository(owner: $owner, name: $name) {
 		refs(refPrefix: "refs/heads/", query: "master main", first: 2) {
 			edges {
@@ -686,17 +686,17 @@ query getCommitHistory ($owner: String!, $name: String!, $id: ID!) {
 }
 `
 
-func getCommitHistory(
+func GetCommitHistory(
 	ctx_ context.Context,
 	client_ graphql.Client,
 	owner string,
 	name string,
 	id string,
-) (*getCommitHistoryResponse, error) {
+) (*GetCommitHistoryResponse, error) {
 	req_ := &graphql.Request{
-		OpName: "getCommitHistory",
-		Query:  getCommitHistory_Operation,
-		Variables: &__getCommitHistoryInput{
+		OpName: "GetCommitHistory",
+		Query:  GetCommitHistory_Operation,
+		Variables: &__GetCommitHistoryInput{
 			Owner: owner,
 			Name:  name,
 			Id:    id,
@@ -704,7 +704,7 @@ func getCommitHistory(
 	}
 	var err_ error
 
-	var data_ getCommitHistoryResponse
+	var data_ GetCommitHistoryResponse
 	resp_ := &graphql.Response{Data: &data_}
 
 	err_ = client_.MakeRequest(
@@ -716,9 +716,9 @@ func getCommitHistory(
 	return &data_, err_
 }
 
-// The query or mutation executed by getContributedRepos.
-const getContributedRepos_Operation = `
-query getContributedRepos ($username: String!) {
+// The query or mutation executed by GetContributedRepos.
+const GetContributedRepos_Operation = `
+query GetContributedRepos ($username: String!) {
 	user(login: $username) {
 		repositoriesContributedTo(last: 100, includeUserRepositories: true) {
 			nodes {
@@ -734,21 +734,21 @@ query getContributedRepos ($username: String!) {
 }
 `
 
-func getContributedRepos(
+func GetContributedRepos(
 	ctx_ context.Context,
 	client_ graphql.Client,
 	username string,
-) (*getContributedReposResponse, error) {
+) (*GetContributedReposResponse, error) {
 	req_ := &graphql.Request{
-		OpName: "getContributedRepos",
-		Query:  getContributedRepos_Operation,
-		Variables: &__getContributedReposInput{
+		OpName: "GetContributedRepos",
+		Query:  GetContributedRepos_Operation,
+		Variables: &__GetContributedReposInput{
 			Username: username,
 		},
 	}
 	var err_ error
 
-	var data_ getContributedReposResponse
+	var data_ GetContributedReposResponse
 	resp_ := &graphql.Response{Data: &data_}
 
 	err_ = client_.MakeRequest(
@@ -760,9 +760,9 @@ func getContributedRepos(
 	return &data_, err_
 }
 
-// The query or mutation executed by getUserInfo.
-const getUserInfo_Operation = `
-query getUserInfo {
+// The query or mutation executed by GetUserInfo.
+const GetUserInfo_Operation = `
+query GetUserInfo {
 	viewer {
 		login
 		id
@@ -770,17 +770,17 @@ query getUserInfo {
 }
 `
 
-func getUserInfo(
+func GetUserInfo(
 	ctx_ context.Context,
 	client_ graphql.Client,
-) (*getUserInfoResponse, error) {
+) (*GetUserInfoResponse, error) {
 	req_ := &graphql.Request{
-		OpName: "getUserInfo",
-		Query:  getUserInfo_Operation,
+		OpName: "GetUserInfo",
+		Query:  GetUserInfo_Operation,
 	}
 	var err_ error
 
-	var data_ getUserInfoResponse
+	var data_ GetUserInfoResponse
 	resp_ := &graphql.Response{Data: &data_}
 
 	err_ = client_.MakeRequest(

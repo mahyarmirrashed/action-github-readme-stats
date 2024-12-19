@@ -1,4 +1,4 @@
-query getCommitHistory($owner: String!, $name: String!, $id: ID!) {
+query GetCommitHistory($owner: String!, $name: String!, $id: ID!) {
   repository(owner: $owner, name: $name) {
     refs(refPrefix: "refs/heads/", query: "master main", first: 2) {
       edges {

@@ -1,4 +1,4 @@
-query getUserInfo {
+query GetUserInfo {
   viewer {
     login
     id

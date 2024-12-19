@@ -1,4 +1,4 @@
-query getContributedRepos($username: String!) {
+query GetContributedRepos($username: String!) {
   user(login: $username) {
     repositoriesContributedTo(last: 100, includeUserRepositories: true) {
       nodes {
