@@ -63,7 +63,7 @@ func updateReadme(filepath string, newContent string) error {
 	}
 
 	// Find the block between <!-- README-STATS:START --> and <!-- README-STATS:END -->
-	re := regexp.MustCompile("(?s)<!-- README-STATS:START -->(.*?)<!-- README-STATS:END -->")
+	re := regexp.MustCompile("(?s)<!--( ?)README-STATS:START( ?)-->(.*?)<!--( ?)README-STATS:END( ?)-->")
 	matches := re.FindSubmatch(data)
 	if matches == nil {
 		return fmt.Errorf("could not find README-STATS block")
