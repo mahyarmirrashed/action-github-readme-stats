@@ -1,0 +1,6 @@
+query getUserInfo {
+  viewer {
+    login
+    id
+  }
+}
