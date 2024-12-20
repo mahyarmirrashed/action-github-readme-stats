@@ -11,7 +11,7 @@ RUN CGO_ENABLED=0 go build -o app
 
 FROM alpine:3.21
 
-RUN apk add --no-cache bash=5.2.37-r0 tzdata=2024b-r1
+RUN apk add --no-cache bash=5.2.37-r0 tzdata=2024b-r1 tree
 
 COPY --from=builder /app/app /usr/local/bin/
 
