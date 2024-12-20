@@ -1,0 +1,29 @@
+name: "GitHub Profile Stats for README"
+description: "Update GitHub README with various statistics."
+
+inputs:
+  GITHUB_TOKEN:
+    description: "GitHub token with permissions to update the README"
+    required: true
+  TIMEZONE:
+    description: "The timezone to use for statistics calculation"
+    required: false
+    default: "America/Winnipeg"
+  INCLUDES:
+    description: |
+      A comma-separated list of stats to include in the desired order.
+    required: false
+    default: "--include DAY_STATS --include WEEK_STATS"
+
+runs:
+  using: "docker"
+  image: "Dockerfile"
+  env:
+    GITHUB_TOKEN: ${{ inputs.GITHUB_TOKEN }}
+    TIMEZONE: ${{ inputs.TIMEZONE }}
+  args:
+    - ${{ inputs.INCLUDES }}
+
+branding:
+  icon: "activity"
+  color: "orange"
