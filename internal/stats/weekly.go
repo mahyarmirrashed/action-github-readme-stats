@@ -75,7 +75,7 @@ func GetWeeklyCommitData(
 		}
 		graph := strings.Repeat("█", done) + strings.Repeat("░", width-done)
 
-		line := fmt.Sprintf("%-12s\t%-4d commits\t%s\t%.2f%%",
+		line := fmt.Sprintf("%-12s\t%-6d commits\t%s\t%.2f%%",
 			name, dayCount, graph, absolutePercentageOfCommits)
 		lines = append(lines, line)
 	}

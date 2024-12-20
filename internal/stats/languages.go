@@ -68,7 +68,7 @@ func GetLanguageData(
 		}
 		graph := strings.Repeat("█", done) + strings.Repeat("░", width-done)
 
-		line := fmt.Sprintf("%-12s\t\t%2d repos\t%s\t%.2f%%",
+		line := fmt.Sprintf("%-12s\t\t%-4d repos\t%s\t%.2f%%",
 			lang.Name, lang.Count, graph, absolutePercentageOfLanguageUsage)
 		lines = append(lines, line)
 	}
