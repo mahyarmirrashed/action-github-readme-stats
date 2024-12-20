@@ -15,6 +15,4 @@ RUN apk add --no-cache bash=5.2.37-r0 tzdata=2024b-r1
 
 COPY --from=builder /app/app /usr/local/bin/
 
-COPY ./entrypoint.sh /usr/local/bin/
-
-ENTRYPOINT ["entrypoint.sh"]
+ENTRYPOINT ["app"]

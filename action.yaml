@@ -23,6 +23,7 @@ runs:
     TIMEZONE: ${{ inputs.TIMEZONE }}
   args:
     - ${{ inputs.INCLUDES }}
+  entrypoint: ./entrypoint.sh
 
 branding:
   icon: "activity"
