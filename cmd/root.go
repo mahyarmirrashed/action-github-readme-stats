@@ -58,7 +58,13 @@ var rootCmd = &cobra.Command{
 		for _, item := range includes {
 			switch item {
 			case "DAY_STATS":
-				contentBuilder.WriteString("\nDay Stats Placeholder\n")
+				// Compute the weekly stats
+				dailyData, err := stats.GetDailyCommitData(cfg, commits)
+				if err != nil {
+					return fmt.Errorf("failed to get daily commit data: %w", err)
+				}
+				contentBuilder.WriteString("\n```\n" + dailyData + "\n```\n")
+
 			case "WEEK_STATS":
 				// Compute the weekly stats
 				weeklyData, err := stats.GetWeeklyCommitData(cfg, commits)
