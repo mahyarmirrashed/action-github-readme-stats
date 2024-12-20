@@ -146,7 +146,7 @@ func updateReadme(filepath string, newContent string) error {
 	// Write the updated content back to the file
 	err = os.WriteFile(filepath, []byte(updatedContent), 0o644)
 	if err != nil {
-		return fmt.Errorf("failed to write updated README file: %w", err)
+		return err
 	}
 
 	return nil
