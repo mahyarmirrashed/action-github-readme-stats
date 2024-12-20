@@ -30,6 +30,9 @@ var rootCmd = &cobra.Command{
 			return fmt.Errorf("GITHUB_TOKEN not provided")
 		}
 
+		log.Debug().Msgf("Stats to include: %s", includes)
+		log.Debug().Msgf("Timezone: %s", cfg.TimeZone)
+
 		// Create GraphQL client
 		client := github.NewClient(cfg.GithubToken)
 		ctx := context.Background()
