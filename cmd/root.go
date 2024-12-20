@@ -54,36 +54,37 @@ var rootCmd = &cobra.Command{
 
 		// Build the output content based on the order of `includes`
 		var contentBuilder strings.Builder
+		codeBlock := func(content string) string { return "\n```\n" + content + "\n```\n" }
 
 		for _, item := range includes {
 			switch item {
 			case "DAY_STATS":
-				// Compute the weekly stats
-				dailyData, err := stats.GetDailyCommitData(cfg, commits)
+				log.Info().Msg("Calculating commit statistics based on time of day")
+				dailyStats, err := stats.GetDailyCommitData(cfg, commits)
 				if err != nil {
-					return fmt.Errorf("failed to get daily commit data: %w", err)
+					return fmt.Errorf("failed to get daily commit stats: %w", err)
 				}
-				contentBuilder.WriteString("\n```\n" + dailyData + "\n```\n")
+				contentBuilder.WriteString(codeBlock(dailyStats))
 
 			case "WEEK_STATS":
-				// Compute the weekly stats
-				weeklyData, err := stats.GetWeeklyCommitData(cfg, commits)
+				log.Info().Msg("Calculating commit statistics based on day of week")
+				weeklyStats, err := stats.GetWeeklyCommitData(cfg, commits)
 				if err != nil {
-					return fmt.Errorf("failed to get weekly commit data: %w", err)
+					return fmt.Errorf("failed to get weekly commit stats: %w", err)
 				}
-				contentBuilder.WriteString("\n```\n" + weeklyData + "\n```\n")
+				contentBuilder.WriteString(codeBlock(weeklyStats))
 
 			case "LANGUAGE_STATS":
-				// Compute the language stats
-				languageData, err := stats.GetLanguageData(cfg, languages)
+				log.Info().Msg("Calculating language statistics")
+				languageStats, err := stats.GetLanguageData(cfg, languages)
 				if err != nil {
-					return fmt.Errorf("failed to get weekly commit data: %w", err)
+					return fmt.Errorf("failed to get language stats: %w", err)
 				}
-				contentBuilder.WriteString("\n```\n" + languageData + "\n```\n")
+				contentBuilder.WriteString(codeBlock(languageStats))
 
 			default:
 				// Unknown item, skip or handle error
-				contentBuilder.WriteString(fmt.Sprintf("Unknown item: %s\n", item))
+				contentBuilder.WriteString(fmt.Sprintf("\n\nUnknown item: %s\n", item))
 			}
 		}
 
