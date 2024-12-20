@@ -23,6 +23,7 @@ runs:
     TIMEZONE: ${{ inputs.TIMEZONE }}
   args:
     - ${{ inputs.INCLUDES }}
+  post-entrypoint: cleanup.sh
 
 branding:
   icon: "activity"
