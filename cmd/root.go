@@ -60,7 +60,7 @@ var rootCmd = &cobra.Command{
 			case "DAY_STATS":
 				contentBuilder.WriteString("\nDay Stats Placeholder\n")
 			case "WEEK_STATS":
-				// Compute the weekly stats from the repositories and user info
+				// Compute the weekly stats
 				weeklyData, err := stats.GetWeeklyCommitData(cfg, commits)
 				if err != nil {
 					return fmt.Errorf("failed to get weekly commit data: %w", err)
@@ -68,7 +68,7 @@ var rootCmd = &cobra.Command{
 				contentBuilder.WriteString("\n```\n" + weeklyData + "\n```\n")
 
 			case "LANGUAGE_STATS":
-				// Compute the weekly stats from the repositories and user info
+				// Compute the language stats
 				languageData, err := stats.GetLanguageData(cfg, languages)
 				if err != nil {
 					return fmt.Errorf("failed to get weekly commit data: %w", err)
