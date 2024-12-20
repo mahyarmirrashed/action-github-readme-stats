@@ -10,8 +10,6 @@ import (
 	"github.com/mahyarmirrashed/github-readme-stats/internal/github"
 )
 
-const width = 30
-
 var weekdayNames = []string{"Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"}
 
 func GetWeeklyCommitData(
