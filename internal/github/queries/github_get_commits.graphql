@@ -1,0 +1,26 @@
+query GetCommits(
+  $repository: String!
+  # @genqlient(pointer: true)
+  $cursor: String
+) {
+  viewer {
+    repository(name: $repository) {
+      defaultBranchRef {
+        target {
+          ... on Commit {
+            history(after: $cursor) {
+              pageInfo {
+                endCursor
+                hasNextPage
+              }
+
+              nodes {
+                committedDate
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

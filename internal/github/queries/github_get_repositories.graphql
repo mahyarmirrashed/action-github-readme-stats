@@ -1,0 +1,20 @@
+query GetRepositories($cursor: String) {
+  viewer {
+    repositories(
+      first: 10
+      after: $cursor
+      isFork: false
+      affiliations: [OWNER]
+    ) {
+      pageInfo {
+        endCursor
+        hasNextPage
+      }
+
+      nodes {
+        isEmpty
+        name
+      }
+    }
+  }
+}

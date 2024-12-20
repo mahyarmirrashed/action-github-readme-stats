@@ -10,6 +10,8 @@ import (
 	"github.com/mahyarmirrashed/github-readme-stats/internal/config"
 	"github.com/mahyarmirrashed/github-readme-stats/internal/github"
 	"github.com/mahyarmirrashed/github-readme-stats/internal/stats"
+	"github.com/rs/zerolog"
+	"github.com/rs/zerolog/log"
 	"github.com/spf13/cobra"
 )
 
@@ -32,21 +34,16 @@ var rootCmd = &cobra.Command{
 		client := github.NewClient(cfg.GithubToken)
 		ctx := context.Background()
 
-		// Fetch repository information
-		var cursor string
-		var repositories []github.GetRepositoryStatsViewerUserRepositoriesRepositoryConnectionNodesRepository
-		hasNextPage := true
+		// Fetch repositories from user
+		repositories, err := github.FetchRepositories(ctx, client)
+		if err != nil {
+			return fmt.Errorf("failed to get repositories: %w", err)
+		}
 
-		for hasNextPage {
-			repositoryStatsQuery, err := github.GetRepositoryStats(ctx, client, cursor)
-			if err != nil {
-				return fmt.Errorf("failed to get repository stats: %w", err)
-			}
-
-			repositories = append(repositories, repositoryStatsQuery.Viewer.Repositories.Nodes...)
-
-			hasNextPage = repositoryStatsQuery.Viewer.Repositories.PageInfo.HasNextPage
-			cursor = repositoryStatsQuery.Viewer.Repositories.PageInfo.EndCursor
+		// Fetch commits from all repositories
+		commits, err := github.FetchCommitsFromRepositories(ctx, client, repositories)
+		if err != nil {
+			return fmt.Errorf("failed to get commits: %w", err)
 		}
 
 		// Build the output content based on the order of `includes`
@@ -58,7 +55,7 @@ var rootCmd = &cobra.Command{
 				contentBuilder.WriteString("\nDay Stats Placeholder\n")
 			case "WEEK_STATS":
 				// Compute the weekly stats from the repositories and user info
-				weeklyData, err := stats.GetWeeklyCommitData(cfg, repositories)
+				weeklyData, err := stats.GetWeeklyCommitData(cfg, commits)
 				if err != nil {
 					return fmt.Errorf("failed to get weekly commit data: %w", err)
 				}
@@ -94,6 +91,8 @@ func Execute() {
 }
 
 func init() {
+	log.Logger = log.Output(zerolog.ConsoleWriter{Out: os.Stderr})
+
 	rootCmd.Flags().StringArrayVar(&includes, "include", []string{}, "Ordered list of stats to include (e.g. DAY_STATS, WEEK_STATS, TOP_LANGUAGES)")
 }
 

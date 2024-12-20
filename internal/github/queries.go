@@ -11,97 +11,67 @@ import (
 	"github.com/Khan/genqlient/graphql"
 )
 
-// GetRepositoryStatsResponse is returned by GetRepositoryStats on success.
-type GetRepositoryStatsResponse struct {
+// GetCommitsResponse is returned by GetCommits on success.
+type GetCommitsResponse struct {
 	// The currently authenticated user.
-	Viewer GetRepositoryStatsViewerUser `json:"viewer"`
+	Viewer GetCommitsViewerUser `json:"viewer"`
 }
 
-// GetViewer returns GetRepositoryStatsResponse.Viewer, and is useful for accessing the field via an interface.
-func (v *GetRepositoryStatsResponse) GetViewer() GetRepositoryStatsViewerUser { return v.Viewer }
+// GetViewer returns GetCommitsResponse.Viewer, and is useful for accessing the field via an interface.
+func (v *GetCommitsResponse) GetViewer() GetCommitsViewerUser { return v.Viewer }
 
-// GetRepositoryStatsViewerUser includes the requested fields of the GraphQL type User.
+// GetCommitsViewerUser includes the requested fields of the GraphQL type User.
 // The GraphQL type's documentation follows.
 //
 // A user is an individual's account on GitHub that owns repositories and can make new content.
-type GetRepositoryStatsViewerUser struct {
-	// A list of repositories that the user owns.
-	Repositories GetRepositoryStatsViewerUserRepositoriesRepositoryConnection `json:"repositories"`
+type GetCommitsViewerUser struct {
+	// Find Repository.
+	Repository GetCommitsViewerUserRepository `json:"repository"`
 }
 
-// GetRepositories returns GetRepositoryStatsViewerUser.Repositories, and is useful for accessing the field via an interface.
-func (v *GetRepositoryStatsViewerUser) GetRepositories() GetRepositoryStatsViewerUserRepositoriesRepositoryConnection {
-	return v.Repositories
-}
+// GetRepository returns GetCommitsViewerUser.Repository, and is useful for accessing the field via an interface.
+func (v *GetCommitsViewerUser) GetRepository() GetCommitsViewerUserRepository { return v.Repository }
 
-// GetRepositoryStatsViewerUserRepositoriesRepositoryConnection includes the requested fields of the GraphQL type RepositoryConnection.
-// The GraphQL type's documentation follows.
-//
-// A list of repositories owned by the subject.
-type GetRepositoryStatsViewerUserRepositoriesRepositoryConnection struct {
-	// Information to aid in pagination.
-	PageInfo GetRepositoryStatsViewerUserRepositoriesRepositoryConnectionPageInfo `json:"pageInfo"`
-	// A list of nodes.
-	Nodes []GetRepositoryStatsViewerUserRepositoriesRepositoryConnectionNodesRepository `json:"nodes"`
-}
-
-// GetPageInfo returns GetRepositoryStatsViewerUserRepositoriesRepositoryConnection.PageInfo, and is useful for accessing the field via an interface.
-func (v *GetRepositoryStatsViewerUserRepositoriesRepositoryConnection) GetPageInfo() GetRepositoryStatsViewerUserRepositoriesRepositoryConnectionPageInfo {
-	return v.PageInfo
-}
-
-// GetNodes returns GetRepositoryStatsViewerUserRepositoriesRepositoryConnection.Nodes, and is useful for accessing the field via an interface.
-func (v *GetRepositoryStatsViewerUserRepositoriesRepositoryConnection) GetNodes() []GetRepositoryStatsViewerUserRepositoriesRepositoryConnectionNodesRepository {
-	return v.Nodes
-}
-
-// GetRepositoryStatsViewerUserRepositoriesRepositoryConnectionNodesRepository includes the requested fields of the GraphQL type Repository.
+// GetCommitsViewerUserRepository includes the requested fields of the GraphQL type Repository.
 // The GraphQL type's documentation follows.
 //
 // A repository contains the content for a project.
-type GetRepositoryStatsViewerUserRepositoriesRepositoryConnectionNodesRepository struct {
+type GetCommitsViewerUserRepository struct {
 	// The Ref associated with the repository's default branch.
-	DefaultBranchRef GetRepositoryStatsViewerUserRepositoriesRepositoryConnectionNodesRepositoryDefaultBranchRef `json:"defaultBranchRef"`
-	// A list containing a breakdown of the language composition of the repository.
-	Languages GetRepositoryStatsViewerUserRepositoriesRepositoryConnectionNodesRepositoryLanguagesLanguageConnection `json:"languages"`
+	DefaultBranchRef GetCommitsViewerUserRepositoryDefaultBranchRef `json:"defaultBranchRef"`
 }
 
-// GetDefaultBranchRef returns GetRepositoryStatsViewerUserRepositoriesRepositoryConnectionNodesRepository.DefaultBranchRef, and is useful for accessing the field via an interface.
-func (v *GetRepositoryStatsViewerUserRepositoriesRepositoryConnectionNodesRepository) GetDefaultBranchRef() GetRepositoryStatsViewerUserRepositoriesRepositoryConnectionNodesRepositoryDefaultBranchRef {
+// GetDefaultBranchRef returns GetCommitsViewerUserRepository.DefaultBranchRef, and is useful for accessing the field via an interface.
+func (v *GetCommitsViewerUserRepository) GetDefaultBranchRef() GetCommitsViewerUserRepositoryDefaultBranchRef {
 	return v.DefaultBranchRef
 }
 
-// GetLanguages returns GetRepositoryStatsViewerUserRepositoriesRepositoryConnectionNodesRepository.Languages, and is useful for accessing the field via an interface.
-func (v *GetRepositoryStatsViewerUserRepositoriesRepositoryConnectionNodesRepository) GetLanguages() GetRepositoryStatsViewerUserRepositoriesRepositoryConnectionNodesRepositoryLanguagesLanguageConnection {
-	return v.Languages
-}
-
-// GetRepositoryStatsViewerUserRepositoriesRepositoryConnectionNodesRepositoryDefaultBranchRef includes the requested fields of the GraphQL type Ref.
+// GetCommitsViewerUserRepositoryDefaultBranchRef includes the requested fields of the GraphQL type Ref.
 // The GraphQL type's documentation follows.
 //
 // Represents a Git reference.
-type GetRepositoryStatsViewerUserRepositoriesRepositoryConnectionNodesRepositoryDefaultBranchRef struct {
+type GetCommitsViewerUserRepositoryDefaultBranchRef struct {
 	// The object the ref points to. Returns null when object does not exist.
-	Target GetRepositoryStatsViewerUserRepositoriesRepositoryConnectionNodesRepositoryDefaultBranchRefTargetGitObject `json:"-"`
+	Target GetCommitsViewerUserRepositoryDefaultBranchRefTargetGitObject `json:"-"`
 }
 
-// GetTarget returns GetRepositoryStatsViewerUserRepositoriesRepositoryConnectionNodesRepositoryDefaultBranchRef.Target, and is useful for accessing the field via an interface.
-func (v *GetRepositoryStatsViewerUserRepositoriesRepositoryConnectionNodesRepositoryDefaultBranchRef) GetTarget() GetRepositoryStatsViewerUserRepositoriesRepositoryConnectionNodesRepositoryDefaultBranchRefTargetGitObject {
+// GetTarget returns GetCommitsViewerUserRepositoryDefaultBranchRef.Target, and is useful for accessing the field via an interface.
+func (v *GetCommitsViewerUserRepositoryDefaultBranchRef) GetTarget() GetCommitsViewerUserRepositoryDefaultBranchRefTargetGitObject {
 	return v.Target
 }
 
-func (v *GetRepositoryStatsViewerUserRepositoriesRepositoryConnectionNodesRepositoryDefaultBranchRef) UnmarshalJSON(b []byte) error {
+func (v *GetCommitsViewerUserRepositoryDefaultBranchRef) UnmarshalJSON(b []byte) error {
 
 	if string(b) == "null" {
 		return nil
 	}
 
 	var firstPass struct {
-		*GetRepositoryStatsViewerUserRepositoriesRepositoryConnectionNodesRepositoryDefaultBranchRef
+		*GetCommitsViewerUserRepositoryDefaultBranchRef
 		Target json.RawMessage `json:"target"`
 		graphql.NoUnmarshalJSON
 	}
-	firstPass.GetRepositoryStatsViewerUserRepositoriesRepositoryConnectionNodesRepositoryDefaultBranchRef = v
+	firstPass.GetCommitsViewerUserRepositoryDefaultBranchRef = v
 
 	err := json.Unmarshal(b, &firstPass)
 	if err != nil {
@@ -112,22 +82,22 @@ func (v *GetRepositoryStatsViewerUserRepositoriesRepositoryConnectionNodesReposi
 		dst := &v.Target
 		src := firstPass.Target
 		if len(src) != 0 && string(src) != "null" {
-			err = __unmarshalGetRepositoryStatsViewerUserRepositoriesRepositoryConnectionNodesRepositoryDefaultBranchRefTargetGitObject(
+			err = __unmarshalGetCommitsViewerUserRepositoryDefaultBranchRefTargetGitObject(
 				src, dst)
 			if err != nil {
 				return fmt.Errorf(
-					"unable to unmarshal GetRepositoryStatsViewerUserRepositoriesRepositoryConnectionNodesRepositoryDefaultBranchRef.Target: %w", err)
+					"unable to unmarshal GetCommitsViewerUserRepositoryDefaultBranchRef.Target: %w", err)
 			}
 		}
 	}
 	return nil
 }
 
-type __premarshalGetRepositoryStatsViewerUserRepositoriesRepositoryConnectionNodesRepositoryDefaultBranchRef struct {
+type __premarshalGetCommitsViewerUserRepositoryDefaultBranchRef struct {
 	Target json.RawMessage `json:"target"`
 }
 
-func (v *GetRepositoryStatsViewerUserRepositoriesRepositoryConnectionNodesRepositoryDefaultBranchRef) MarshalJSON() ([]byte, error) {
+func (v *GetCommitsViewerUserRepositoryDefaultBranchRef) MarshalJSON() ([]byte, error) {
 	premarshaled, err := v.__premarshalJSON()
 	if err != nil {
 		return nil, err
@@ -135,111 +105,139 @@ func (v *GetRepositoryStatsViewerUserRepositoriesRepositoryConnectionNodesReposi
 	return json.Marshal(premarshaled)
 }
 
-func (v *GetRepositoryStatsViewerUserRepositoriesRepositoryConnectionNodesRepositoryDefaultBranchRef) __premarshalJSON() (*__premarshalGetRepositoryStatsViewerUserRepositoriesRepositoryConnectionNodesRepositoryDefaultBranchRef, error) {
-	var retval __premarshalGetRepositoryStatsViewerUserRepositoriesRepositoryConnectionNodesRepositoryDefaultBranchRef
+func (v *GetCommitsViewerUserRepositoryDefaultBranchRef) __premarshalJSON() (*__premarshalGetCommitsViewerUserRepositoryDefaultBranchRef, error) {
+	var retval __premarshalGetCommitsViewerUserRepositoryDefaultBranchRef
 
 	{
 
 		dst := &retval.Target
 		src := v.Target
 		var err error
-		*dst, err = __marshalGetRepositoryStatsViewerUserRepositoriesRepositoryConnectionNodesRepositoryDefaultBranchRefTargetGitObject(
+		*dst, err = __marshalGetCommitsViewerUserRepositoryDefaultBranchRefTargetGitObject(
 			&src)
 		if err != nil {
 			return nil, fmt.Errorf(
-				"unable to marshal GetRepositoryStatsViewerUserRepositoriesRepositoryConnectionNodesRepositoryDefaultBranchRef.Target: %w", err)
+				"unable to marshal GetCommitsViewerUserRepositoryDefaultBranchRef.Target: %w", err)
 		}
 	}
 	return &retval, nil
 }
 
-// GetRepositoryStatsViewerUserRepositoriesRepositoryConnectionNodesRepositoryDefaultBranchRefTargetBlob includes the requested fields of the GraphQL type Blob.
+// GetCommitsViewerUserRepositoryDefaultBranchRefTargetBlob includes the requested fields of the GraphQL type Blob.
 // The GraphQL type's documentation follows.
 //
 // Represents a Git blob.
-type GetRepositoryStatsViewerUserRepositoriesRepositoryConnectionNodesRepositoryDefaultBranchRefTargetBlob struct {
+type GetCommitsViewerUserRepositoryDefaultBranchRefTargetBlob struct {
 	Typename string `json:"__typename"`
 }
 
-// GetTypename returns GetRepositoryStatsViewerUserRepositoriesRepositoryConnectionNodesRepositoryDefaultBranchRefTargetBlob.Typename, and is useful for accessing the field via an interface.
-func (v *GetRepositoryStatsViewerUserRepositoriesRepositoryConnectionNodesRepositoryDefaultBranchRefTargetBlob) GetTypename() string {
+// GetTypename returns GetCommitsViewerUserRepositoryDefaultBranchRefTargetBlob.Typename, and is useful for accessing the field via an interface.
+func (v *GetCommitsViewerUserRepositoryDefaultBranchRefTargetBlob) GetTypename() string {
 	return v.Typename
 }
 
-// GetRepositoryStatsViewerUserRepositoriesRepositoryConnectionNodesRepositoryDefaultBranchRefTargetCommit includes the requested fields of the GraphQL type Commit.
+// GetCommitsViewerUserRepositoryDefaultBranchRefTargetCommit includes the requested fields of the GraphQL type Commit.
 // The GraphQL type's documentation follows.
 //
 // Represents a Git commit.
-type GetRepositoryStatsViewerUserRepositoriesRepositoryConnectionNodesRepositoryDefaultBranchRefTargetCommit struct {
+type GetCommitsViewerUserRepositoryDefaultBranchRefTargetCommit struct {
 	Typename string `json:"__typename"`
 	// The linear commit history starting from (and including) this commit, in the same order as `git log`.
-	History GetRepositoryStatsViewerUserRepositoriesRepositoryConnectionNodesRepositoryDefaultBranchRefTargetCommitHistoryCommitHistoryConnection `json:"history"`
+	History GetCommitsViewerUserRepositoryDefaultBranchRefTargetCommitHistoryCommitHistoryConnection `json:"history"`
 }
 
-// GetTypename returns GetRepositoryStatsViewerUserRepositoriesRepositoryConnectionNodesRepositoryDefaultBranchRefTargetCommit.Typename, and is useful for accessing the field via an interface.
-func (v *GetRepositoryStatsViewerUserRepositoriesRepositoryConnectionNodesRepositoryDefaultBranchRefTargetCommit) GetTypename() string {
+// GetTypename returns GetCommitsViewerUserRepositoryDefaultBranchRefTargetCommit.Typename, and is useful for accessing the field via an interface.
+func (v *GetCommitsViewerUserRepositoryDefaultBranchRefTargetCommit) GetTypename() string {
 	return v.Typename
 }
 
-// GetHistory returns GetRepositoryStatsViewerUserRepositoriesRepositoryConnectionNodesRepositoryDefaultBranchRefTargetCommit.History, and is useful for accessing the field via an interface.
-func (v *GetRepositoryStatsViewerUserRepositoriesRepositoryConnectionNodesRepositoryDefaultBranchRefTargetCommit) GetHistory() GetRepositoryStatsViewerUserRepositoriesRepositoryConnectionNodesRepositoryDefaultBranchRefTargetCommitHistoryCommitHistoryConnection {
+// GetHistory returns GetCommitsViewerUserRepositoryDefaultBranchRefTargetCommit.History, and is useful for accessing the field via an interface.
+func (v *GetCommitsViewerUserRepositoryDefaultBranchRefTargetCommit) GetHistory() GetCommitsViewerUserRepositoryDefaultBranchRefTargetCommitHistoryCommitHistoryConnection {
 	return v.History
 }
 
-// GetRepositoryStatsViewerUserRepositoriesRepositoryConnectionNodesRepositoryDefaultBranchRefTargetCommitHistoryCommitHistoryConnection includes the requested fields of the GraphQL type CommitHistoryConnection.
+// GetCommitsViewerUserRepositoryDefaultBranchRefTargetCommitHistoryCommitHistoryConnection includes the requested fields of the GraphQL type CommitHistoryConnection.
 // The GraphQL type's documentation follows.
 //
 // The connection type for Commit.
-type GetRepositoryStatsViewerUserRepositoriesRepositoryConnectionNodesRepositoryDefaultBranchRefTargetCommitHistoryCommitHistoryConnection struct {
+type GetCommitsViewerUserRepositoryDefaultBranchRefTargetCommitHistoryCommitHistoryConnection struct {
+	// Information to aid in pagination.
+	PageInfo GetCommitsViewerUserRepositoryDefaultBranchRefTargetCommitHistoryCommitHistoryConnectionPageInfo `json:"pageInfo"`
 	// A list of nodes.
-	Nodes []GetRepositoryStatsViewerUserRepositoriesRepositoryConnectionNodesRepositoryDefaultBranchRefTargetCommitHistoryCommitHistoryConnectionNodesCommit `json:"nodes"`
+	Nodes []GetCommitsViewerUserRepositoryDefaultBranchRefTargetCommitHistoryCommitHistoryConnectionNodesCommit `json:"nodes"`
 }
 
-// GetNodes returns GetRepositoryStatsViewerUserRepositoriesRepositoryConnectionNodesRepositoryDefaultBranchRefTargetCommitHistoryCommitHistoryConnection.Nodes, and is useful for accessing the field via an interface.
-func (v *GetRepositoryStatsViewerUserRepositoriesRepositoryConnectionNodesRepositoryDefaultBranchRefTargetCommitHistoryCommitHistoryConnection) GetNodes() []GetRepositoryStatsViewerUserRepositoriesRepositoryConnectionNodesRepositoryDefaultBranchRefTargetCommitHistoryCommitHistoryConnectionNodesCommit {
+// GetPageInfo returns GetCommitsViewerUserRepositoryDefaultBranchRefTargetCommitHistoryCommitHistoryConnection.PageInfo, and is useful for accessing the field via an interface.
+func (v *GetCommitsViewerUserRepositoryDefaultBranchRefTargetCommitHistoryCommitHistoryConnection) GetPageInfo() GetCommitsViewerUserRepositoryDefaultBranchRefTargetCommitHistoryCommitHistoryConnectionPageInfo {
+	return v.PageInfo
+}
+
+// GetNodes returns GetCommitsViewerUserRepositoryDefaultBranchRefTargetCommitHistoryCommitHistoryConnection.Nodes, and is useful for accessing the field via an interface.
+func (v *GetCommitsViewerUserRepositoryDefaultBranchRefTargetCommitHistoryCommitHistoryConnection) GetNodes() []GetCommitsViewerUserRepositoryDefaultBranchRefTargetCommitHistoryCommitHistoryConnectionNodesCommit {
 	return v.Nodes
 }
 
-// GetRepositoryStatsViewerUserRepositoriesRepositoryConnectionNodesRepositoryDefaultBranchRefTargetCommitHistoryCommitHistoryConnectionNodesCommit includes the requested fields of the GraphQL type Commit.
+// GetCommitsViewerUserRepositoryDefaultBranchRefTargetCommitHistoryCommitHistoryConnectionNodesCommit includes the requested fields of the GraphQL type Commit.
 // The GraphQL type's documentation follows.
 //
 // Represents a Git commit.
-type GetRepositoryStatsViewerUserRepositoriesRepositoryConnectionNodesRepositoryDefaultBranchRefTargetCommitHistoryCommitHistoryConnectionNodesCommit struct {
+type GetCommitsViewerUserRepositoryDefaultBranchRefTargetCommitHistoryCommitHistoryConnectionNodesCommit struct {
 	// The datetime when this commit was committed.
 	CommittedDate time.Time `json:"committedDate"`
 }
 
-// GetCommittedDate returns GetRepositoryStatsViewerUserRepositoriesRepositoryConnectionNodesRepositoryDefaultBranchRefTargetCommitHistoryCommitHistoryConnectionNodesCommit.CommittedDate, and is useful for accessing the field via an interface.
-func (v *GetRepositoryStatsViewerUserRepositoriesRepositoryConnectionNodesRepositoryDefaultBranchRefTargetCommitHistoryCommitHistoryConnectionNodesCommit) GetCommittedDate() time.Time {
+// GetCommittedDate returns GetCommitsViewerUserRepositoryDefaultBranchRefTargetCommitHistoryCommitHistoryConnectionNodesCommit.CommittedDate, and is useful for accessing the field via an interface.
+func (v *GetCommitsViewerUserRepositoryDefaultBranchRefTargetCommitHistoryCommitHistoryConnectionNodesCommit) GetCommittedDate() time.Time {
 	return v.CommittedDate
 }
 
-// GetRepositoryStatsViewerUserRepositoriesRepositoryConnectionNodesRepositoryDefaultBranchRefTargetGitObject includes the requested fields of the GraphQL interface GitObject.
+// GetCommitsViewerUserRepositoryDefaultBranchRefTargetCommitHistoryCommitHistoryConnectionPageInfo includes the requested fields of the GraphQL type PageInfo.
+// The GraphQL type's documentation follows.
 //
-// GetRepositoryStatsViewerUserRepositoriesRepositoryConnectionNodesRepositoryDefaultBranchRefTargetGitObject is implemented by the following types:
-// GetRepositoryStatsViewerUserRepositoriesRepositoryConnectionNodesRepositoryDefaultBranchRefTargetBlob
-// GetRepositoryStatsViewerUserRepositoriesRepositoryConnectionNodesRepositoryDefaultBranchRefTargetCommit
-// GetRepositoryStatsViewerUserRepositoriesRepositoryConnectionNodesRepositoryDefaultBranchRefTargetTag
-// GetRepositoryStatsViewerUserRepositoriesRepositoryConnectionNodesRepositoryDefaultBranchRefTargetTree
+// Information about pagination in a connection.
+type GetCommitsViewerUserRepositoryDefaultBranchRefTargetCommitHistoryCommitHistoryConnectionPageInfo struct {
+	// When paginating forwards, the cursor to continue.
+	EndCursor string `json:"endCursor"`
+	// When paginating forwards, are there more items?
+	HasNextPage bool `json:"hasNextPage"`
+}
+
+// GetEndCursor returns GetCommitsViewerUserRepositoryDefaultBranchRefTargetCommitHistoryCommitHistoryConnectionPageInfo.EndCursor, and is useful for accessing the field via an interface.
+func (v *GetCommitsViewerUserRepositoryDefaultBranchRefTargetCommitHistoryCommitHistoryConnectionPageInfo) GetEndCursor() string {
+	return v.EndCursor
+}
+
+// GetHasNextPage returns GetCommitsViewerUserRepositoryDefaultBranchRefTargetCommitHistoryCommitHistoryConnectionPageInfo.HasNextPage, and is useful for accessing the field via an interface.
+func (v *GetCommitsViewerUserRepositoryDefaultBranchRefTargetCommitHistoryCommitHistoryConnectionPageInfo) GetHasNextPage() bool {
+	return v.HasNextPage
+}
+
+// GetCommitsViewerUserRepositoryDefaultBranchRefTargetGitObject includes the requested fields of the GraphQL interface GitObject.
+//
+// GetCommitsViewerUserRepositoryDefaultBranchRefTargetGitObject is implemented by the following types:
+// GetCommitsViewerUserRepositoryDefaultBranchRefTargetBlob
+// GetCommitsViewerUserRepositoryDefaultBranchRefTargetCommit
+// GetCommitsViewerUserRepositoryDefaultBranchRefTargetTag
+// GetCommitsViewerUserRepositoryDefaultBranchRefTargetTree
 // The GraphQL type's documentation follows.
 //
 // Represents a Git object.
-type GetRepositoryStatsViewerUserRepositoriesRepositoryConnectionNodesRepositoryDefaultBranchRefTargetGitObject interface {
-	implementsGraphQLInterfaceGetRepositoryStatsViewerUserRepositoriesRepositoryConnectionNodesRepositoryDefaultBranchRefTargetGitObject()
+type GetCommitsViewerUserRepositoryDefaultBranchRefTargetGitObject interface {
+	implementsGraphQLInterfaceGetCommitsViewerUserRepositoryDefaultBranchRefTargetGitObject()
 	// GetTypename returns the receiver's concrete GraphQL type-name (see interface doc for possible values).
 	GetTypename() string
 }
 
-func (v *GetRepositoryStatsViewerUserRepositoriesRepositoryConnectionNodesRepositoryDefaultBranchRefTargetBlob) implementsGraphQLInterfaceGetRepositoryStatsViewerUserRepositoriesRepositoryConnectionNodesRepositoryDefaultBranchRefTargetGitObject() {
+func (v *GetCommitsViewerUserRepositoryDefaultBranchRefTargetBlob) implementsGraphQLInterfaceGetCommitsViewerUserRepositoryDefaultBranchRefTargetGitObject() {
 }
-func (v *GetRepositoryStatsViewerUserRepositoriesRepositoryConnectionNodesRepositoryDefaultBranchRefTargetCommit) implementsGraphQLInterfaceGetRepositoryStatsViewerUserRepositoriesRepositoryConnectionNodesRepositoryDefaultBranchRefTargetGitObject() {
+func (v *GetCommitsViewerUserRepositoryDefaultBranchRefTargetCommit) implementsGraphQLInterfaceGetCommitsViewerUserRepositoryDefaultBranchRefTargetGitObject() {
 }
-func (v *GetRepositoryStatsViewerUserRepositoriesRepositoryConnectionNodesRepositoryDefaultBranchRefTargetTag) implementsGraphQLInterfaceGetRepositoryStatsViewerUserRepositoriesRepositoryConnectionNodesRepositoryDefaultBranchRefTargetGitObject() {
+func (v *GetCommitsViewerUserRepositoryDefaultBranchRefTargetTag) implementsGraphQLInterfaceGetCommitsViewerUserRepositoryDefaultBranchRefTargetGitObject() {
 }
-func (v *GetRepositoryStatsViewerUserRepositoriesRepositoryConnectionNodesRepositoryDefaultBranchRefTargetTree) implementsGraphQLInterfaceGetRepositoryStatsViewerUserRepositoriesRepositoryConnectionNodesRepositoryDefaultBranchRefTargetGitObject() {
+func (v *GetCommitsViewerUserRepositoryDefaultBranchRefTargetTree) implementsGraphQLInterfaceGetCommitsViewerUserRepositoryDefaultBranchRefTargetGitObject() {
 }
 
-func __unmarshalGetRepositoryStatsViewerUserRepositoriesRepositoryConnectionNodesRepositoryDefaultBranchRefTargetGitObject(b []byte, v *GetRepositoryStatsViewerUserRepositoriesRepositoryConnectionNodesRepositoryDefaultBranchRefTargetGitObject) error {
+func __unmarshalGetCommitsViewerUserRepositoryDefaultBranchRefTargetGitObject(b []byte, v *GetCommitsViewerUserRepositoryDefaultBranchRefTargetGitObject) error {
 	if string(b) == "null" {
 		return nil
 	}
@@ -254,200 +252,219 @@ func __unmarshalGetRepositoryStatsViewerUserRepositoriesRepositoryConnectionNode
 
 	switch tn.TypeName {
 	case "Blob":
-		*v = new(GetRepositoryStatsViewerUserRepositoriesRepositoryConnectionNodesRepositoryDefaultBranchRefTargetBlob)
+		*v = new(GetCommitsViewerUserRepositoryDefaultBranchRefTargetBlob)
 		return json.Unmarshal(b, *v)
 	case "Commit":
-		*v = new(GetRepositoryStatsViewerUserRepositoriesRepositoryConnectionNodesRepositoryDefaultBranchRefTargetCommit)
+		*v = new(GetCommitsViewerUserRepositoryDefaultBranchRefTargetCommit)
 		return json.Unmarshal(b, *v)
 	case "Tag":
-		*v = new(GetRepositoryStatsViewerUserRepositoriesRepositoryConnectionNodesRepositoryDefaultBranchRefTargetTag)
+		*v = new(GetCommitsViewerUserRepositoryDefaultBranchRefTargetTag)
 		return json.Unmarshal(b, *v)
 	case "Tree":
-		*v = new(GetRepositoryStatsViewerUserRepositoriesRepositoryConnectionNodesRepositoryDefaultBranchRefTargetTree)
+		*v = new(GetCommitsViewerUserRepositoryDefaultBranchRefTargetTree)
 		return json.Unmarshal(b, *v)
 	case "":
 		return fmt.Errorf(
 			"response was missing GitObject.__typename")
 	default:
 		return fmt.Errorf(
-			`unexpected concrete type for GetRepositoryStatsViewerUserRepositoriesRepositoryConnectionNodesRepositoryDefaultBranchRefTargetGitObject: "%v"`, tn.TypeName)
+			`unexpected concrete type for GetCommitsViewerUserRepositoryDefaultBranchRefTargetGitObject: "%v"`, tn.TypeName)
 	}
 }
 
-func __marshalGetRepositoryStatsViewerUserRepositoriesRepositoryConnectionNodesRepositoryDefaultBranchRefTargetGitObject(v *GetRepositoryStatsViewerUserRepositoriesRepositoryConnectionNodesRepositoryDefaultBranchRefTargetGitObject) ([]byte, error) {
+func __marshalGetCommitsViewerUserRepositoryDefaultBranchRefTargetGitObject(v *GetCommitsViewerUserRepositoryDefaultBranchRefTargetGitObject) ([]byte, error) {
 
 	var typename string
 	switch v := (*v).(type) {
-	case *GetRepositoryStatsViewerUserRepositoriesRepositoryConnectionNodesRepositoryDefaultBranchRefTargetBlob:
+	case *GetCommitsViewerUserRepositoryDefaultBranchRefTargetBlob:
 		typename = "Blob"
 
 		result := struct {
 			TypeName string `json:"__typename"`
-			*GetRepositoryStatsViewerUserRepositoriesRepositoryConnectionNodesRepositoryDefaultBranchRefTargetBlob
+			*GetCommitsViewerUserRepositoryDefaultBranchRefTargetBlob
 		}{typename, v}
 		return json.Marshal(result)
-	case *GetRepositoryStatsViewerUserRepositoriesRepositoryConnectionNodesRepositoryDefaultBranchRefTargetCommit:
+	case *GetCommitsViewerUserRepositoryDefaultBranchRefTargetCommit:
 		typename = "Commit"
 
 		result := struct {
 			TypeName string `json:"__typename"`
-			*GetRepositoryStatsViewerUserRepositoriesRepositoryConnectionNodesRepositoryDefaultBranchRefTargetCommit
+			*GetCommitsViewerUserRepositoryDefaultBranchRefTargetCommit
 		}{typename, v}
 		return json.Marshal(result)
-	case *GetRepositoryStatsViewerUserRepositoriesRepositoryConnectionNodesRepositoryDefaultBranchRefTargetTag:
+	case *GetCommitsViewerUserRepositoryDefaultBranchRefTargetTag:
 		typename = "Tag"
 
 		result := struct {
 			TypeName string `json:"__typename"`
-			*GetRepositoryStatsViewerUserRepositoriesRepositoryConnectionNodesRepositoryDefaultBranchRefTargetTag
+			*GetCommitsViewerUserRepositoryDefaultBranchRefTargetTag
 		}{typename, v}
 		return json.Marshal(result)
-	case *GetRepositoryStatsViewerUserRepositoriesRepositoryConnectionNodesRepositoryDefaultBranchRefTargetTree:
+	case *GetCommitsViewerUserRepositoryDefaultBranchRefTargetTree:
 		typename = "Tree"
 
 		result := struct {
 			TypeName string `json:"__typename"`
-			*GetRepositoryStatsViewerUserRepositoriesRepositoryConnectionNodesRepositoryDefaultBranchRefTargetTree
+			*GetCommitsViewerUserRepositoryDefaultBranchRefTargetTree
 		}{typename, v}
 		return json.Marshal(result)
 	case nil:
 		return []byte("null"), nil
 	default:
 		return nil, fmt.Errorf(
-			`unexpected concrete type for GetRepositoryStatsViewerUserRepositoriesRepositoryConnectionNodesRepositoryDefaultBranchRefTargetGitObject: "%T"`, v)
+			`unexpected concrete type for GetCommitsViewerUserRepositoryDefaultBranchRefTargetGitObject: "%T"`, v)
 	}
 }
 
-// GetRepositoryStatsViewerUserRepositoriesRepositoryConnectionNodesRepositoryDefaultBranchRefTargetTag includes the requested fields of the GraphQL type Tag.
+// GetCommitsViewerUserRepositoryDefaultBranchRefTargetTag includes the requested fields of the GraphQL type Tag.
 // The GraphQL type's documentation follows.
 //
 // Represents a Git tag.
-type GetRepositoryStatsViewerUserRepositoriesRepositoryConnectionNodesRepositoryDefaultBranchRefTargetTag struct {
+type GetCommitsViewerUserRepositoryDefaultBranchRefTargetTag struct {
 	Typename string `json:"__typename"`
 }
 
-// GetTypename returns GetRepositoryStatsViewerUserRepositoriesRepositoryConnectionNodesRepositoryDefaultBranchRefTargetTag.Typename, and is useful for accessing the field via an interface.
-func (v *GetRepositoryStatsViewerUserRepositoriesRepositoryConnectionNodesRepositoryDefaultBranchRefTargetTag) GetTypename() string {
+// GetTypename returns GetCommitsViewerUserRepositoryDefaultBranchRefTargetTag.Typename, and is useful for accessing the field via an interface.
+func (v *GetCommitsViewerUserRepositoryDefaultBranchRefTargetTag) GetTypename() string {
 	return v.Typename
 }
 
-// GetRepositoryStatsViewerUserRepositoriesRepositoryConnectionNodesRepositoryDefaultBranchRefTargetTree includes the requested fields of the GraphQL type Tree.
+// GetCommitsViewerUserRepositoryDefaultBranchRefTargetTree includes the requested fields of the GraphQL type Tree.
 // The GraphQL type's documentation follows.
 //
 // Represents a Git tree.
-type GetRepositoryStatsViewerUserRepositoriesRepositoryConnectionNodesRepositoryDefaultBranchRefTargetTree struct {
+type GetCommitsViewerUserRepositoryDefaultBranchRefTargetTree struct {
 	Typename string `json:"__typename"`
 }
 
-// GetTypename returns GetRepositoryStatsViewerUserRepositoriesRepositoryConnectionNodesRepositoryDefaultBranchRefTargetTree.Typename, and is useful for accessing the field via an interface.
-func (v *GetRepositoryStatsViewerUserRepositoriesRepositoryConnectionNodesRepositoryDefaultBranchRefTargetTree) GetTypename() string {
+// GetTypename returns GetCommitsViewerUserRepositoryDefaultBranchRefTargetTree.Typename, and is useful for accessing the field via an interface.
+func (v *GetCommitsViewerUserRepositoryDefaultBranchRefTargetTree) GetTypename() string {
 	return v.Typename
 }
 
-// GetRepositoryStatsViewerUserRepositoriesRepositoryConnectionNodesRepositoryLanguagesLanguageConnection includes the requested fields of the GraphQL type LanguageConnection.
+// GetRepositoriesResponse is returned by GetRepositories on success.
+type GetRepositoriesResponse struct {
+	// The currently authenticated user.
+	Viewer GetRepositoriesViewerUser `json:"viewer"`
+}
+
+// GetViewer returns GetRepositoriesResponse.Viewer, and is useful for accessing the field via an interface.
+func (v *GetRepositoriesResponse) GetViewer() GetRepositoriesViewerUser { return v.Viewer }
+
+// GetRepositoriesViewerUser includes the requested fields of the GraphQL type User.
 // The GraphQL type's documentation follows.
 //
-// A list of languages associated with the parent.
-type GetRepositoryStatsViewerUserRepositoriesRepositoryConnectionNodesRepositoryLanguagesLanguageConnection struct {
-	// A list of edges.
-	Edges []GetRepositoryStatsViewerUserRepositoriesRepositoryConnectionNodesRepositoryLanguagesLanguageConnectionEdgesLanguageEdge `json:"edges"`
+// A user is an individual's account on GitHub that owns repositories and can make new content.
+type GetRepositoriesViewerUser struct {
+	// A list of repositories that the user owns.
+	Repositories GetRepositoriesViewerUserRepositoriesRepositoryConnection `json:"repositories"`
 }
 
-// GetEdges returns GetRepositoryStatsViewerUserRepositoriesRepositoryConnectionNodesRepositoryLanguagesLanguageConnection.Edges, and is useful for accessing the field via an interface.
-func (v *GetRepositoryStatsViewerUserRepositoriesRepositoryConnectionNodesRepositoryLanguagesLanguageConnection) GetEdges() []GetRepositoryStatsViewerUserRepositoriesRepositoryConnectionNodesRepositoryLanguagesLanguageConnectionEdgesLanguageEdge {
-	return v.Edges
+// GetRepositories returns GetRepositoriesViewerUser.Repositories, and is useful for accessing the field via an interface.
+func (v *GetRepositoriesViewerUser) GetRepositories() GetRepositoriesViewerUserRepositoriesRepositoryConnection {
+	return v.Repositories
 }
 
-// GetRepositoryStatsViewerUserRepositoriesRepositoryConnectionNodesRepositoryLanguagesLanguageConnectionEdgesLanguageEdge includes the requested fields of the GraphQL type LanguageEdge.
+// GetRepositoriesViewerUserRepositoriesRepositoryConnection includes the requested fields of the GraphQL type RepositoryConnection.
 // The GraphQL type's documentation follows.
 //
-// Represents the language of a repository.
-type GetRepositoryStatsViewerUserRepositoriesRepositoryConnectionNodesRepositoryLanguagesLanguageConnectionEdgesLanguageEdge struct {
-	// The number of bytes of code written in the language.
-	Size int                                                                                                                                 `json:"size"`
-	Node GetRepositoryStatsViewerUserRepositoriesRepositoryConnectionNodesRepositoryLanguagesLanguageConnectionEdgesLanguageEdgeNodeLanguage `json:"node"`
+// A list of repositories owned by the subject.
+type GetRepositoriesViewerUserRepositoriesRepositoryConnection struct {
+	// Information to aid in pagination.
+	PageInfo GetRepositoriesViewerUserRepositoriesRepositoryConnectionPageInfo `json:"pageInfo"`
+	// A list of nodes.
+	Nodes []GetRepositoriesViewerUserRepositoriesRepositoryConnectionNodesRepository `json:"nodes"`
 }
 
-// GetSize returns GetRepositoryStatsViewerUserRepositoriesRepositoryConnectionNodesRepositoryLanguagesLanguageConnectionEdgesLanguageEdge.Size, and is useful for accessing the field via an interface.
-func (v *GetRepositoryStatsViewerUserRepositoriesRepositoryConnectionNodesRepositoryLanguagesLanguageConnectionEdgesLanguageEdge) GetSize() int {
-	return v.Size
+// GetPageInfo returns GetRepositoriesViewerUserRepositoriesRepositoryConnection.PageInfo, and is useful for accessing the field via an interface.
+func (v *GetRepositoriesViewerUserRepositoriesRepositoryConnection) GetPageInfo() GetRepositoriesViewerUserRepositoriesRepositoryConnectionPageInfo {
+	return v.PageInfo
 }
 
-// GetNode returns GetRepositoryStatsViewerUserRepositoriesRepositoryConnectionNodesRepositoryLanguagesLanguageConnectionEdgesLanguageEdge.Node, and is useful for accessing the field via an interface.
-func (v *GetRepositoryStatsViewerUserRepositoriesRepositoryConnectionNodesRepositoryLanguagesLanguageConnectionEdgesLanguageEdge) GetNode() GetRepositoryStatsViewerUserRepositoriesRepositoryConnectionNodesRepositoryLanguagesLanguageConnectionEdgesLanguageEdgeNodeLanguage {
-	return v.Node
+// GetNodes returns GetRepositoriesViewerUserRepositoriesRepositoryConnection.Nodes, and is useful for accessing the field via an interface.
+func (v *GetRepositoriesViewerUserRepositoriesRepositoryConnection) GetNodes() []GetRepositoriesViewerUserRepositoriesRepositoryConnectionNodesRepository {
+	return v.Nodes
 }
 
-// GetRepositoryStatsViewerUserRepositoriesRepositoryConnectionNodesRepositoryLanguagesLanguageConnectionEdgesLanguageEdgeNodeLanguage includes the requested fields of the GraphQL type Language.
+// GetRepositoriesViewerUserRepositoriesRepositoryConnectionNodesRepository includes the requested fields of the GraphQL type Repository.
 // The GraphQL type's documentation follows.
 //
-// Represents a given language found in repositories.
-type GetRepositoryStatsViewerUserRepositoriesRepositoryConnectionNodesRepositoryLanguagesLanguageConnectionEdgesLanguageEdgeNodeLanguage struct {
-	// The name of the current language.
+// A repository contains the content for a project.
+type GetRepositoriesViewerUserRepositoriesRepositoryConnectionNodesRepository struct {
+	// Returns whether or not this repository is empty.
+	IsEmpty bool `json:"isEmpty"`
+	// The name of the repository.
 	Name string `json:"name"`
 }
 
-// GetName returns GetRepositoryStatsViewerUserRepositoriesRepositoryConnectionNodesRepositoryLanguagesLanguageConnectionEdgesLanguageEdgeNodeLanguage.Name, and is useful for accessing the field via an interface.
-func (v *GetRepositoryStatsViewerUserRepositoriesRepositoryConnectionNodesRepositoryLanguagesLanguageConnectionEdgesLanguageEdgeNodeLanguage) GetName() string {
+// GetIsEmpty returns GetRepositoriesViewerUserRepositoriesRepositoryConnectionNodesRepository.IsEmpty, and is useful for accessing the field via an interface.
+func (v *GetRepositoriesViewerUserRepositoriesRepositoryConnectionNodesRepository) GetIsEmpty() bool {
+	return v.IsEmpty
+}
+
+// GetName returns GetRepositoriesViewerUserRepositoriesRepositoryConnectionNodesRepository.Name, and is useful for accessing the field via an interface.
+func (v *GetRepositoriesViewerUserRepositoriesRepositoryConnectionNodesRepository) GetName() string {
 	return v.Name
 }
 
-// GetRepositoryStatsViewerUserRepositoriesRepositoryConnectionPageInfo includes the requested fields of the GraphQL type PageInfo.
+// GetRepositoriesViewerUserRepositoriesRepositoryConnectionPageInfo includes the requested fields of the GraphQL type PageInfo.
 // The GraphQL type's documentation follows.
 //
 // Information about pagination in a connection.
-type GetRepositoryStatsViewerUserRepositoriesRepositoryConnectionPageInfo struct {
+type GetRepositoriesViewerUserRepositoriesRepositoryConnectionPageInfo struct {
 	// When paginating forwards, the cursor to continue.
 	EndCursor string `json:"endCursor"`
 	// When paginating forwards, are there more items?
 	HasNextPage bool `json:"hasNextPage"`
 }
 
-// GetEndCursor returns GetRepositoryStatsViewerUserRepositoriesRepositoryConnectionPageInfo.EndCursor, and is useful for accessing the field via an interface.
-func (v *GetRepositoryStatsViewerUserRepositoriesRepositoryConnectionPageInfo) GetEndCursor() string {
+// GetEndCursor returns GetRepositoriesViewerUserRepositoriesRepositoryConnectionPageInfo.EndCursor, and is useful for accessing the field via an interface.
+func (v *GetRepositoriesViewerUserRepositoriesRepositoryConnectionPageInfo) GetEndCursor() string {
 	return v.EndCursor
 }
 
-// GetHasNextPage returns GetRepositoryStatsViewerUserRepositoriesRepositoryConnectionPageInfo.HasNextPage, and is useful for accessing the field via an interface.
-func (v *GetRepositoryStatsViewerUserRepositoriesRepositoryConnectionPageInfo) GetHasNextPage() bool {
+// GetHasNextPage returns GetRepositoriesViewerUserRepositoriesRepositoryConnectionPageInfo.HasNextPage, and is useful for accessing the field via an interface.
+func (v *GetRepositoriesViewerUserRepositoriesRepositoryConnectionPageInfo) GetHasNextPage() bool {
 	return v.HasNextPage
 }
 
-// __GetRepositoryStatsInput is used internally by genqlient
-type __GetRepositoryStatsInput struct {
+// __GetCommitsInput is used internally by genqlient
+type __GetCommitsInput struct {
+	Repository string  `json:"repository"`
+	Cursor     *string `json:"cursor"`
+}
+
+// GetRepository returns __GetCommitsInput.Repository, and is useful for accessing the field via an interface.
+func (v *__GetCommitsInput) GetRepository() string { return v.Repository }
+
+// GetCursor returns __GetCommitsInput.Cursor, and is useful for accessing the field via an interface.
+func (v *__GetCommitsInput) GetCursor() *string { return v.Cursor }
+
+// __GetRepositoriesInput is used internally by genqlient
+type __GetRepositoriesInput struct {
 	Cursor string `json:"cursor"`
 }
 
-// GetCursor returns __GetRepositoryStatsInput.Cursor, and is useful for accessing the field via an interface.
-func (v *__GetRepositoryStatsInput) GetCursor() string { return v.Cursor }
+// GetCursor returns __GetRepositoriesInput.Cursor, and is useful for accessing the field via an interface.
+func (v *__GetRepositoriesInput) GetCursor() string { return v.Cursor }
 
-// The query or mutation executed by GetRepositoryStats.
-const GetRepositoryStats_Operation = `
-query GetRepositoryStats ($cursor: String) {
+// The query or mutation executed by GetCommits.
+const GetCommits_Operation = `
+query GetCommits ($repository: String!, $cursor: String) {
 	viewer {
-		repositories(first: 10, after: $cursor, isFork: false, affiliations: [OWNER]) {
-			pageInfo {
-				endCursor
-				hasNextPage
-			}
-			nodes {
-				defaultBranchRef {
-					target {
-						__typename
-						... on Commit {
-							history(first: 100) {
-								nodes {
-									committedDate
-								}
+		repository(name: $repository) {
+			defaultBranchRef {
+				target {
+					__typename
+					... on Commit {
+						history(after: $cursor) {
+							pageInfo {
+								endCursor
+								hasNextPage
 							}
-						}
-					}
-				}
-				languages(first: 100, orderBy: {field:SIZE,direction:DESC}) {
-					edges {
-						size
-						node {
-							name
+							nodes {
+								committedDate
+							}
 						}
 					}
 				}
@@ -457,21 +474,67 @@ query GetRepositoryStats ($cursor: String) {
 }
 `
 
-func GetRepositoryStats(
+func GetCommits(
+	ctx_ context.Context,
+	client_ graphql.Client,
+	repository string,
+	cursor *string,
+) (*GetCommitsResponse, error) {
+	req_ := &graphql.Request{
+		OpName: "GetCommits",
+		Query:  GetCommits_Operation,
+		Variables: &__GetCommitsInput{
+			Repository: repository,
+			Cursor:     cursor,
+		},
+	}
+	var err_ error
+
+	var data_ GetCommitsResponse
+	resp_ := &graphql.Response{Data: &data_}
+
+	err_ = client_.MakeRequest(
+		ctx_,
+		req_,
+		resp_,
+	)
+
+	return &data_, err_
+}
+
+// The query or mutation executed by GetRepositories.
+const GetRepositories_Operation = `
+query GetRepositories ($cursor: String) {
+	viewer {
+		repositories(first: 10, after: $cursor, isFork: false, affiliations: [OWNER]) {
+			pageInfo {
+				endCursor
+				hasNextPage
+			}
+			nodes {
+				isEmpty
+				name
+			}
+		}
+	}
+}
+`
+
+func GetRepositories(
 	ctx_ context.Context,
 	client_ graphql.Client,
 	cursor string,
-) (*GetRepositoryStatsResponse, error) {
+) (*GetRepositoriesResponse, error) {
 	req_ := &graphql.Request{
-		OpName: "GetRepositoryStats",
-		Query:  GetRepositoryStats_Operation,
-		Variables: &__GetRepositoryStatsInput{
+		OpName: "GetRepositories",
+		Query:  GetRepositories_Operation,
+		Variables: &__GetRepositoriesInput{
 			Cursor: cursor,
 		},
 	}
 	var err_ error
 
-	var data_ GetRepositoryStatsResponse
+	var data_ GetRepositoriesResponse
 	resp_ := &graphql.Response{Data: &data_}
 
 	err_ = client_.MakeRequest(

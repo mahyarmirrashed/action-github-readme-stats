@@ -16,7 +16,7 @@ var weekdayNames = []string{"Monday", "Tuesday", "Wednesday", "Thursday", "Frida
 
 func GetWeeklyCommitData(
 	cfg config.Config,
-	repositories []github.GetRepositoryStatsViewerUserRepositoriesRepositoryConnectionNodesRepository,
+	commits []github.Commit,
 ) (string, error) {
 	// Load the user's configured timezone
 	loc, err := time.LoadLocation(cfg.TimeZone)
@@ -35,16 +35,9 @@ func GetWeeklyCommitData(
 		time.Sunday:    0,
 	}
 
-	for _, repo := range repositories {
-		commitTarget, ok := repo.DefaultBranchRef.GetTarget().(*github.GetRepositoryStatsViewerUserRepositoriesRepositoryConnectionNodesRepositoryDefaultBranchRefTargetCommit)
-		if !ok {
-			continue
-		}
-
-		for _, commit := range commitTarget.History.Nodes {
-			commitTime := commit.CommittedDate.In(loc)
-			weekdays[commitTime.Weekday()]++
-		}
+	for _, commit := range commits {
+		commitTime := commit.CommittedDate.In(loc)
+		weekdays[commitTime.Weekday()]++
 	}
 
 	// Compute total and maximum commits
@@ -84,7 +77,7 @@ func GetWeeklyCommitData(
 		}
 		graph := strings.Repeat("█", done) + strings.Repeat("░", width-done)
 
-		line := fmt.Sprintf("%-12s\t%3d commits\t%s\t%.2f%%",
+		line := fmt.Sprintf("%-12s\t%-4d commits\t%s\t%.2f%%",
 			name, dayCount, graph, absolutePercentageOfCommits)
 		lines = append(lines, line)
 	}
