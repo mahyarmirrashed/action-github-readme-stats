@@ -4,6 +4,7 @@ import (
 	"context"
 	"fmt"
 	"os"
+	"path/filepath"
 	"regexp"
 	"strings"
 
@@ -14,8 +15,6 @@ import (
 	"github.com/rs/zerolog/log"
 	"github.com/spf13/cobra"
 )
-
-const readmePath = "README.md"
 
 var includes []string
 
@@ -32,6 +31,15 @@ var rootCmd = &cobra.Command{
 
 		log.Debug().Msgf("Stats to include: %s", includes)
 		log.Debug().Msgf("Timezone: %s", cfg.TimeZone)
+
+		// Get the current working directory
+		cwd, err := os.Getwd()
+		if err != nil {
+			return fmt.Errorf("failed to get current working directory: %w", err)
+		}
+		path := filepath.Join(cwd, "README.md")
+
+		log.Debug().Msgf("Path for readme is: %s", path)
 
 		// Create GraphQL client
 		client := github.NewClient(cfg.GithubToken)
@@ -95,7 +103,7 @@ var rootCmd = &cobra.Command{
 		contentBuilder.WriteString("\n")
 
 		// Update the README file
-		if err := updateReadme(readmePath, contentBuilder.String()); err != nil {
+		if err := updateReadme(path, contentBuilder.String()); err != nil {
 			return fmt.Errorf("failed to update README: %w", err)
 		}
 
