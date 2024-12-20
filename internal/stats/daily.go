@@ -79,7 +79,7 @@ func GetDailyCommitData(
 
 	// Build the output
 	var lines []string
-	lines = append(lines, fmt.Sprintf("🕰️ I prefer to work in the %s!", strings.ToLower(preferredWorkingHour)))
+	lines = append(lines, fmt.Sprintf("🕰️ I get my jam on during the %s!", strings.ToLower(preferredWorkingHour)))
 	lines = append(lines, "")
 
 	width := 30

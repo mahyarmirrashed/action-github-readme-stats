@@ -57,7 +57,7 @@ func GetWeeklyCommitData(
 
 	var lines []string
 
-	lines = append(lines, fmt.Sprintf("📅 I'm most productive on %ss", weekdayNames[weekdayWithMostCommits]))
+	lines = append(lines, fmt.Sprintf("📅 I'm most productive on %ss!", weekdayNames[weekdayWithMostCommits]))
 	lines = append(lines, "")
 
 	// Generate graph for weekly commit stats

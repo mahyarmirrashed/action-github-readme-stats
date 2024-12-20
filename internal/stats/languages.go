@@ -51,7 +51,7 @@ func GetLanguageData(
 	// Build output
 	var lines []string
 	topLanguage := aggregatedLanguages[0].Name
-	lines = append(lines, fmt.Sprintf("🧪 I prefer to work in %s", topLanguage))
+	lines = append(lines, fmt.Sprintf("🧪 %s for the win!", topLanguage))
 	lines = append(lines, "")
 
 	if len(aggregatedLanguages) > 5 {
@@ -68,7 +68,7 @@ func GetLanguageData(
 		}
 		graph := strings.Repeat("█", done) + strings.Repeat("░", width-done)
 
-		line := fmt.Sprintf("%-12s\t\t%-4d repos\t%s\t%.2f%%",
+		line := fmt.Sprintf("%-12s\t%-6d repos\t%s\t%.2f%%",
 			lang.Name, lang.Count, graph, absolutePercentageOfLanguageUsage)
 		lines = append(lines, line)
 	}
