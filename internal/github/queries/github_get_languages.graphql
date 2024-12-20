@@ -1,0 +1,14 @@
+query GetLanguages($repository: String!) {
+  viewer {
+    repository(name: $repository) {
+      languages(first: 100, orderBy: { field: SIZE, direction: DESC }) {
+        edges {
+          size
+          node {
+            name
+          }
+        }
+      }
+    }
+  }
+}

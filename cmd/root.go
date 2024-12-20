@@ -46,6 +46,12 @@ var rootCmd = &cobra.Command{
 			return fmt.Errorf("failed to get commits: %w", err)
 		}
 
+		// Fetch languages from all repositories
+		languages, err := github.FetchLanguagesFromRepositories(ctx, client, repositories)
+		if err != nil {
+			return fmt.Errorf("failed to get languages: %w", err)
+		}
+
 		// Build the output content based on the order of `includes`
 		var contentBuilder strings.Builder
 
@@ -61,8 +67,14 @@ var rootCmd = &cobra.Command{
 				}
 				contentBuilder.WriteString("\n```\n" + weeklyData + "\n```\n")
 
-			case "TOP_LANGUAGES":
-				contentBuilder.WriteString("\nTop Languages Placeholder\n")
+			case "LANGUAGE_STATS":
+				// Compute the weekly stats from the repositories and user info
+				languageData, err := stats.GetLanguageData(cfg, languages)
+				if err != nil {
+					return fmt.Errorf("failed to get weekly commit data: %w", err)
+				}
+				contentBuilder.WriteString("\n```\n" + languageData + "\n```\n")
+
 			default:
 				// Unknown item, skip or handle error
 				contentBuilder.WriteString(fmt.Sprintf("Unknown item: %s\n", item))
@@ -93,7 +105,7 @@ func Execute() {
 func init() {
 	log.Logger = log.Output(zerolog.ConsoleWriter{Out: os.Stderr})
 
-	rootCmd.Flags().StringArrayVar(&includes, "include", []string{}, "Ordered list of stats to include (e.g. DAY_STATS, WEEK_STATS, TOP_LANGUAGES)")
+	rootCmd.Flags().StringArrayVar(&includes, "include", []string{}, "Ordered list of stats to include (e.g. DAY_STATS, WEEK_STATS, LANGUAGE_STATS)")
 }
 
 func updateReadme(filepath string, newContent string) error {

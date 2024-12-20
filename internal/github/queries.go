@@ -342,6 +342,91 @@ func (v *GetCommitsViewerUserRepositoryDefaultBranchRefTargetTree) GetTypename()
 	return v.Typename
 }
 
+// GetLanguagesResponse is returned by GetLanguages on success.
+type GetLanguagesResponse struct {
+	// The currently authenticated user.
+	Viewer GetLanguagesViewerUser `json:"viewer"`
+}
+
+// GetViewer returns GetLanguagesResponse.Viewer, and is useful for accessing the field via an interface.
+func (v *GetLanguagesResponse) GetViewer() GetLanguagesViewerUser { return v.Viewer }
+
+// GetLanguagesViewerUser includes the requested fields of the GraphQL type User.
+// The GraphQL type's documentation follows.
+//
+// A user is an individual's account on GitHub that owns repositories and can make new content.
+type GetLanguagesViewerUser struct {
+	// Find Repository.
+	Repository GetLanguagesViewerUserRepository `json:"repository"`
+}
+
+// GetRepository returns GetLanguagesViewerUser.Repository, and is useful for accessing the field via an interface.
+func (v *GetLanguagesViewerUser) GetRepository() GetLanguagesViewerUserRepository {
+	return v.Repository
+}
+
+// GetLanguagesViewerUserRepository includes the requested fields of the GraphQL type Repository.
+// The GraphQL type's documentation follows.
+//
+// A repository contains the content for a project.
+type GetLanguagesViewerUserRepository struct {
+	// A list containing a breakdown of the language composition of the repository.
+	Languages GetLanguagesViewerUserRepositoryLanguagesLanguageConnection `json:"languages"`
+}
+
+// GetLanguages returns GetLanguagesViewerUserRepository.Languages, and is useful for accessing the field via an interface.
+func (v *GetLanguagesViewerUserRepository) GetLanguages() GetLanguagesViewerUserRepositoryLanguagesLanguageConnection {
+	return v.Languages
+}
+
+// GetLanguagesViewerUserRepositoryLanguagesLanguageConnection includes the requested fields of the GraphQL type LanguageConnection.
+// The GraphQL type's documentation follows.
+//
+// A list of languages associated with the parent.
+type GetLanguagesViewerUserRepositoryLanguagesLanguageConnection struct {
+	// A list of edges.
+	Edges []GetLanguagesViewerUserRepositoryLanguagesLanguageConnectionEdgesLanguageEdge `json:"edges"`
+}
+
+// GetEdges returns GetLanguagesViewerUserRepositoryLanguagesLanguageConnection.Edges, and is useful for accessing the field via an interface.
+func (v *GetLanguagesViewerUserRepositoryLanguagesLanguageConnection) GetEdges() []GetLanguagesViewerUserRepositoryLanguagesLanguageConnectionEdgesLanguageEdge {
+	return v.Edges
+}
+
+// GetLanguagesViewerUserRepositoryLanguagesLanguageConnectionEdgesLanguageEdge includes the requested fields of the GraphQL type LanguageEdge.
+// The GraphQL type's documentation follows.
+//
+// Represents the language of a repository.
+type GetLanguagesViewerUserRepositoryLanguagesLanguageConnectionEdgesLanguageEdge struct {
+	// The number of bytes of code written in the language.
+	Size int                                                                                      `json:"size"`
+	Node GetLanguagesViewerUserRepositoryLanguagesLanguageConnectionEdgesLanguageEdgeNodeLanguage `json:"node"`
+}
+
+// GetSize returns GetLanguagesViewerUserRepositoryLanguagesLanguageConnectionEdgesLanguageEdge.Size, and is useful for accessing the field via an interface.
+func (v *GetLanguagesViewerUserRepositoryLanguagesLanguageConnectionEdgesLanguageEdge) GetSize() int {
+	return v.Size
+}
+
+// GetNode returns GetLanguagesViewerUserRepositoryLanguagesLanguageConnectionEdgesLanguageEdge.Node, and is useful for accessing the field via an interface.
+func (v *GetLanguagesViewerUserRepositoryLanguagesLanguageConnectionEdgesLanguageEdge) GetNode() GetLanguagesViewerUserRepositoryLanguagesLanguageConnectionEdgesLanguageEdgeNodeLanguage {
+	return v.Node
+}
+
+// GetLanguagesViewerUserRepositoryLanguagesLanguageConnectionEdgesLanguageEdgeNodeLanguage includes the requested fields of the GraphQL type Language.
+// The GraphQL type's documentation follows.
+//
+// Represents a given language found in repositories.
+type GetLanguagesViewerUserRepositoryLanguagesLanguageConnectionEdgesLanguageEdgeNodeLanguage struct {
+	// The name of the current language.
+	Name string `json:"name"`
+}
+
+// GetName returns GetLanguagesViewerUserRepositoryLanguagesLanguageConnectionEdgesLanguageEdgeNodeLanguage.Name, and is useful for accessing the field via an interface.
+func (v *GetLanguagesViewerUserRepositoryLanguagesLanguageConnectionEdgesLanguageEdgeNodeLanguage) GetName() string {
+	return v.Name
+}
+
 // GetRepositoriesResponse is returned by GetRepositories on success.
 type GetRepositoriesResponse struct {
 	// The currently authenticated user.
@@ -440,6 +525,14 @@ func (v *__GetCommitsInput) GetRepository() string { return v.Repository }
 // GetCursor returns __GetCommitsInput.Cursor, and is useful for accessing the field via an interface.
 func (v *__GetCommitsInput) GetCursor() *string { return v.Cursor }
 
+// __GetLanguagesInput is used internally by genqlient
+type __GetLanguagesInput struct {
+	Repository string `json:"repository"`
+}
+
+// GetRepository returns __GetLanguagesInput.Repository, and is useful for accessing the field via an interface.
+func (v *__GetLanguagesInput) GetRepository() string { return v.Repository }
+
 // __GetRepositoriesInput is used internally by genqlient
 type __GetRepositoriesInput struct {
 	Cursor string `json:"cursor"`
@@ -491,6 +584,50 @@ func GetCommits(
 	var err_ error
 
 	var data_ GetCommitsResponse
+	resp_ := &graphql.Response{Data: &data_}
+
+	err_ = client_.MakeRequest(
+		ctx_,
+		req_,
+		resp_,
+	)
+
+	return &data_, err_
+}
+
+// The query or mutation executed by GetLanguages.
+const GetLanguages_Operation = `
+query GetLanguages ($repository: String!) {
+	viewer {
+		repository(name: $repository) {
+			languages(first: 100, orderBy: {field:SIZE,direction:DESC}) {
+				edges {
+					size
+					node {
+						name
+					}
+				}
+			}
+		}
+	}
+}
+`
+
+func GetLanguages(
+	ctx_ context.Context,
+	client_ graphql.Client,
+	repository string,
+) (*GetLanguagesResponse, error) {
+	req_ := &graphql.Request{
+		OpName: "GetLanguages",
+		Query:  GetLanguages_Operation,
+		Variables: &__GetLanguagesInput{
+			Repository: repository,
+		},
+	}
+	var err_ error
+
+	var data_ GetLanguagesResponse
 	resp_ := &graphql.Response{Data: &data_}
 
 	err_ = client_.MakeRequest(
