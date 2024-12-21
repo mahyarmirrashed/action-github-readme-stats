@@ -43,9 +43,14 @@ func GetLanguageData(
 		return "no languages found", nil
 	}
 
-	// Sort by count descending
+	// Sort aggregated languages
 	sort.Slice(aggregatedLanguages, func(i, j int) bool {
-		return aggregatedLanguages[i].Count > aggregatedLanguages[j].Count
+		if aggregatedLanguages[i].Count != aggregatedLanguages[j].Count {
+			// Sort by count descending if counts are not equal
+			return aggregatedLanguages[i].Count > aggregatedLanguages[j].Count
+		}
+		// Sort by name ascending, otherwise
+		return aggregatedLanguages[i].Name < aggregatedLanguages[j].Name
 	})
 
 	// Build output
