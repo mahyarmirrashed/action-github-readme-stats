@@ -13,7 +13,7 @@ inputs:
     description: |
       A comma-separated list of stats to include in the desired order.
     required: false
-    default: "--include DAY_STATS --include WEEK_STATS"
+    default: "DAY_STATS WEEK_STATS"
 
 runs:
   using: "docker"
