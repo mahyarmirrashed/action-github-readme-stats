@@ -84,7 +84,7 @@ new repository secret, name it `PAT`, and paste the generated token in the body!
 > permission.
 >
 > I created this GitHub action to keep the processing of this information local
-> to GitHub's infrastructure (unlike WakaTime[^2] to reduce potential attack
+> to GitHub's infrastructure (unlike WakaTime[^2]) to reduce potential attack
 > surfaces.
 
 ## Usage
