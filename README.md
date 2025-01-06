@@ -71,9 +71,9 @@ Give your token a name (e.g. "Profile Stats"), an expiration (e.g. 30 days), and
 a description.
 
 > [!IMPORTANT]  
-> For the permissions, you need to give access to "All repositories", and
-> selecting "read-only" "Content" access for the "Repository Permissions". Then,
-> generate the token.
+> For the permissions, you need to give access to `All repositories`, and
+> selecting `read-only` `Contents` access for the `Repository Permissions`.
+> Then, generate the token.
 
 Once the token is generated, copy it, and create a new repository secret for
 your repository. (It will be located at an address like
