@@ -41,7 +41,7 @@ func FetchRepositories(ctx context.Context, client graphql.Client) ([]Repository
 		repositoryPaginationCursor = repositoryQuery.Viewer.Repositories.PageInfo.EndCursor
 	}
 
-	log.Debug().Msgf("Found %d repositories", len(repositories))
+	log.Info().Msgf("Found %d repositories", len(repositories))
 
 	return repositories, nil
 }
@@ -80,7 +80,7 @@ func FetchCommitsFromRepositories(ctx context.Context, client graphql.Client, re
 		}
 	}
 
-	log.Debug().Msgf("Found %d commits across all repositories", len(commits))
+	log.Info().Msgf("Found %d commits across all repositories", len(commits))
 
 	return commits, nil
 }
@@ -101,7 +101,7 @@ func FetchLanguagesFromRepositories(ctx context.Context, client graphql.Client, 
 		log.Debug().Msgf("Added %d languages from %s", len(languageQuery.Viewer.Repository.Languages.Edges), repository.Name)
 	}
 
-	log.Debug().Msgf("Found %d languages", len(languages))
+	log.Info().Msgf("Found %d languages", len(languages))
 
 	return languages, nil
 }
