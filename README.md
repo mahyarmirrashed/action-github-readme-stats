@@ -60,7 +60,7 @@ jobs:
         with:
           GITHUB_TOKEN: ${{ secrets.PAT }}
           TIMEZONE: "America/Winnipeg"
-          INCLUDES: "DAY_STATS WEEK_STATS LANGUAGE_STATS"
+          FEATURES: "DAY_STATS,WEEK_STATS,LANGUAGE_STATS"
 ```
 
 Next, generate a Personal Access Token (PAT) in your
@@ -106,17 +106,17 @@ with your chosen statistics.
 
 ### Example Configuration
 
-To include daily, weekly, and language statistics, set the `INCLUDES` parameter
+To include daily, weekly, and language statistics, set the `FEATURES` parameter
 as follows:
 
 ```yaml
-INCLUDES: "DAY_STATS WEEK_STATS LANGUAGE_STATS"
+FEATURES: "DAY_STATS,WEEK_STATS,LANGUAGE_STATS"
 ```
 
 ## Configuration
 
 You can customize the statistics included and their order by modifying the
-`INCLUDES` parameter in your workflow file.
+`FEATURES` parameter in your workflow file.
 
 ### Available Includes
 

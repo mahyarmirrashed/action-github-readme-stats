@@ -9,11 +9,11 @@ inputs:
     description: "The timezone to use for statistics calculation"
     required: false
     default: "America/Winnipeg"
-  INCLUDES:
+  FEATURES:
     description: |
-      A comma-separated list of stats to include in the desired order.
+      A comma-separated list of stats to include (with order).
     required: false
-    default: "DAY_STATS WEEK_STATS"
+    default: "DAY_STATS,WEEK_STATS"
 
 runs:
   using: "docker"
@@ -22,8 +22,7 @@ runs:
     GITHUB_TOKEN: ${{ inputs.GITHUB_TOKEN }}
     TIMEZONE: ${{ inputs.TIMEZONE }}
   args:
-    - ${{ inputs.INCLUDES }}
-  post-entrypoint: cleanup.sh
+    - ${{ inputs.FEATURES }}
 
 branding:
   icon: "activity"
