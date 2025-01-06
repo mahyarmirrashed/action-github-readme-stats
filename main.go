@@ -8,12 +8,14 @@ import (
 	"regexp"
 	"strings"
 
+	_ "time/tzdata" // TZ info for FROM scratch
+
 	"github.com/mahyarmirrashed/github-readme-stats/internal/config"
 	"github.com/mahyarmirrashed/github-readme-stats/internal/github"
 	"github.com/mahyarmirrashed/github-readme-stats/internal/stats"
 	"github.com/rs/zerolog"
 	"github.com/rs/zerolog/log"
-	_ "golang.org/x/crypto/x509roots/fallback" // CA bundle for FROM Scratch
+	_ "golang.org/x/crypto/x509roots/fallback" // CA bundle for FROM scratch
 )
 
 func main() {
