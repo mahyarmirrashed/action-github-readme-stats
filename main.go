@@ -22,17 +22,22 @@ func main() {
 	zerolog.SetGlobalLevel(zerolog.InfoLevel) // Set default log level to Info
 
 	// Fetch arguments excluding the program name
-	args := os.Args[1:]
+	if len(os.Args) != 2 {
+		log.Error().Msg("Invalid number of arguments provided")
+		printUsage()
+		os.Exit(1)
+	}
+	argument := os.Args[1]
 
-	// Validate and process includes
-	includes, err := validateArgs(args)
+	// Validate and process features
+	features, err := validate(argument)
 	if err != nil {
 		log.Error().Err(err).Msg("Invalid arguments provided")
 		printUsage()
 		os.Exit(1)
 	}
 
-	log.Debug().Msgf("Stats to include: %v", includes)
+	log.Debug().Msgf("Features to include: %v", features)
 
 	// Load and validate configuration
 	cfg := config.LoadConfig()
@@ -78,12 +83,12 @@ func main() {
 		os.Exit(1)
 	}
 
-	// Build the output content based on the order of includes
+	// Build the output content based on the order of features
 	var contentBuilder strings.Builder
 	codeBlock := func(content string) string { return "\n```\n" + content + "\n```\n" }
 
-	for _, item := range includes {
-		switch item {
+	for _, feature := range features {
+		switch feature {
 		case "DAY_STATS":
 			log.Info().Msg("Calculating commit statistics based on time of day")
 			dailyStats, err := stats.GetDailyCommitData(cfg, commits)
@@ -112,9 +117,9 @@ func main() {
 			contentBuilder.WriteString(codeBlock(languageStats))
 
 		default:
-			// Unknown item, skip or handle error
-			log.Warn().Msgf("Unknown include item: %s", item)
-			contentBuilder.WriteString(fmt.Sprintf("\n\nUnknown item: %s\n", item))
+			// Unknown feature, skip or handle error
+			log.Warn().Msgf("Unknown feature: %s", feature)
+			contentBuilder.WriteString(fmt.Sprintf("\n\nUnknown feature: %s\n", feature))
 		}
 	}
 
@@ -130,30 +135,25 @@ func main() {
 	log.Info().Msg("README.md successfully updated")
 }
 
-// Checks if the provided includes are valid
-func validateArgs(args []string) ([]string, error) {
-	if len(args) == 0 {
-		return nil, fmt.Errorf("no arguments provided")
-	}
-
-	validIncludes := map[string]bool{
+// Validate the provided features
+func validate(arg string) ([]string, error) {
+	validFeatures := map[string]bool{
 		"DAY_STATS":      true,
 		"WEEK_STATS":     true,
 		"LANGUAGE_STATS": true,
 	}
 
-	var includes []string
-	for _, arg := range args {
-		upperArg := strings.ToUpper(arg)
-		if !validIncludes[upperArg] {
-			return nil, fmt.Errorf("invalid include argument: %s", arg)
+	var features []string
+	for _, feature := range strings.Split(arg, ",") {
+		if !validFeatures[strings.ToUpper(strings.TrimSpace(feature))] {
+			return nil, fmt.Errorf("invalid feature argument: %s", feature)
 		}
-		includes = append(includes, upperArg)
+		features = append(features, feature)
 	}
-	return includes, nil
+	return features, nil
 }
 
-// Peplace README-STATS block with new content
+// Replace README-STATS block with new content
 func updateReadme(filepath string, newContent string) error {
 	// Read the file content
 	data, err := os.ReadFile(filepath)
@@ -182,15 +182,12 @@ func updateReadme(filepath string, newContent string) error {
 // Displays the correct usage of the program
 func printUsage() {
 	usage := `
-Usage: github-readme-stats [OPTIONS]
+Usage: github-readme-stats <FEATURE_LIST>
 
-Options:
-  DAY_STATS        Include daily commit statistics.
-  WEEK_STATS       Include weekly commit statistics.
-  LANGUAGE_STATS   Include language usage statistics.
+FEATURE_LIST: Comma-separated list of features to include (e.g., DAY_STATS,WEEK_STATS,LANGUAGE_STATS)
 
 Example:
-  github-readme-stats DAY_STATS WEEK_STATS LANGUAGE_STATS
+  github-readme-stats DAY_STATS,WEEK_STATS,LANGUAGE_STATS
 `
 	fmt.Println(usage)
 }
