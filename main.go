@@ -19,7 +19,7 @@ import (
 func main() {
 	// Initialize logger with console output
 	log.Logger = log.Output(zerolog.ConsoleWriter{Out: os.Stderr})
-	zerolog.SetGlobalLevel(zerolog.InfoLevel) // Set default log level to Info
+	zerolog.SetGlobalLevel(zerolog.DebugLevel) // Set default log level to Debug
 
 	// Fetch arguments excluding the program name
 	if len(os.Args) != 2 {
