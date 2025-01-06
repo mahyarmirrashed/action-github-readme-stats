@@ -61,6 +61,13 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.PAT }}
           TIMEZONE: "America/Winnipeg"
           FEATURES: "DAY_STATS,WEEK_STATS,LANGUAGE_STATS"
+      - name: "Commit changes"
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git add README.md
+          git commit -m "chore: update readme via actions"
+          git push
 ```
 
 Next, generate a Personal Access Token (PAT) in your
