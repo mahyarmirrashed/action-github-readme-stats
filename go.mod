@@ -1,4 +1,4 @@
-module github.com/mahyarmirrashed/github-readme-stats
+module github.com/mahyarmirrashed/action-github-readme-stats
 
 go 1.22.7
 

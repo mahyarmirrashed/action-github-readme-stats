@@ -6,8 +6,8 @@ import (
 	"sort"
 	"strings"
 
-	"github.com/mahyarmirrashed/github-readme-stats/internal/config"
-	"github.com/mahyarmirrashed/github-readme-stats/internal/github"
+	"github.com/mahyarmirrashed/action-github-readme-stats/internal/config"
+	"github.com/mahyarmirrashed/action-github-readme-stats/internal/github"
 )
 
 type Language struct {

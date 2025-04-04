@@ -10,9 +10,9 @@ import (
 
 	_ "time/tzdata" // TZ info for FROM scratch
 
-	"github.com/mahyarmirrashed/github-readme-stats/internal/config"
-	"github.com/mahyarmirrashed/github-readme-stats/internal/github"
-	"github.com/mahyarmirrashed/github-readme-stats/internal/stats"
+	"github.com/mahyarmirrashed/action-github-readme-stats/internal/config"
+	"github.com/mahyarmirrashed/action-github-readme-stats/internal/github"
+	"github.com/mahyarmirrashed/action-github-readme-stats/internal/stats"
 	"github.com/rs/zerolog"
 	"github.com/rs/zerolog/log"
 	_ "golang.org/x/crypto/x509roots/fallback" // CA bundle for FROM scratch
@@ -184,12 +184,12 @@ func updateReadme(filepath string, newContent string) error {
 // Displays the correct usage of the program
 func printUsage() {
 	usage := `
-Usage: github-readme-stats <FEATURE_LIST>
+Usage: action-github-readme-stats <FEATURE_LIST>
 
 FEATURE_LIST: Comma-separated list of features to include (e.g., DAY_STATS,WEEK_STATS,LANGUAGE_STATS)
 
 Example:
-  github-readme-stats DAY_STATS,WEEK_STATS,LANGUAGE_STATS
+  action-github-readme-stats DAY_STATS,WEEK_STATS,LANGUAGE_STATS
 `
 	fmt.Println(usage)
 }

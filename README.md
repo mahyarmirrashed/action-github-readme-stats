@@ -56,7 +56,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - uses: mahyarmirrashed/github-readme-stats@main # v1.0 and other tags exist, as well
+      - uses: mahyarmirrashed/action-github-readme-stats@main # v1.0 and other tags exist, as well
         with:
           GITHUB_TOKEN: ${{ secrets.PAT }}
           TIMEZONE: "America/Winnipeg"
